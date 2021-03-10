@@ -1,2 +1,2 @@
 # poli-app-c2
-Clinet - Hasalaka 
+This Poli app for special clinet Hashan ( Hasalaka )
