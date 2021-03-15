@@ -235,7 +235,7 @@ mysqli_select_db($con,DB_NAME);
                             $sundays = intval($days / 7) + ($start->format('N') + $days % 7 >= 7);
                             //Get Sundays ------------------ End
 
-                            ///////////////////
+                            //////////////////////////
                             if($loan_type =="daily" && $loan_method =="normal"){
 
                               $end_date  = date('Y-m-d', strtotime($dateEnd. ' + '.$poyadays.' days'));
@@ -251,8 +251,7 @@ mysqli_select_db($con,DB_NAME);
                             }elseif($loan_type =="weekly" && $loan_method =="sunday off"){
                               $end_date = date('Y-m-d', strtotime($dateEnd. ' + '.$sundays.' days'));
                             }
-
-                            ///////////////////
+                            //////////////////////////
 
                             $querySummary = "SELECT id ,loanAMT FROM summary WHERE year='$year' AND month='$month' ";
                             $resultSummary = mysqli_query($con ,$querySummary);
