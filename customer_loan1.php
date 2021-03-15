@@ -182,8 +182,7 @@ mysqli_select_db($con,DB_NAME);
                       </div>
                     </div>
                   </div>
-                  
-            
+
                   <div class="row">
                     <div class="update ml-auto mr-auto">
                       <input type="hidden" name ="submit" value="submit"/>
@@ -200,12 +199,12 @@ mysqli_select_db($con,DB_NAME);
                             $no_installements = $_POST['no_installements'];
                             $rental           = $_POST['rental'];
                             $duration         = $_POST['duration'];
-<<<<<<< HEAD
+
                             $end_date         = $_POST['end_date'];
-=======
+
                             $end_date        = $_POST['end_date'];
-                            //$qa  = $_POST['end_date'];
->>>>>>> 25dbdfa43349488ac7452b623b91562911f14040
+                            $qa  = $_POST['end_date'];
+
                            
                             $year =  date("Y");
                             $month = date("m");
@@ -216,15 +215,15 @@ mysqli_select_db($con,DB_NAME);
                             $loan_type    = $_POST['loan_type'];
                             $loan_method    = $_POST['loan_method'];
 
-                            // $dateBegin = date('Y-m-d', strtotime($_POST['l_date']));
-                            // $dateEnd = date('Y-m-d', strtotime($_POST['end_date']));
+                            $dateBegin = date('Y-m-d', strtotime($_POST['l_date']));
+                            $dateEnd = date('Y-m-d', strtotime($_POST['end_date']));
                              
-<<<<<<< HEAD
-                            //  //Get Poyadays ------------------ Start
-                            //  $poyadays = 0;
-                            //  $spDates=mysqli_query($con,"SELECT * FROM special_days");
-                            //  while($row = mysqli_fetch_assoc($spDates)) {
-=======
+
+                             //Get Poyadays ------------------ Start
+                             // $poyadays = 0;
+                             // $spDates=mysqli_query($con,"SELECT * FROM special_days");
+                             // while($row = mysqli_fetch_assoc($spDates)) {
+
                              //Get Poyadays ------------------ Start
                              $poyadays = 0;
                              $spDates=mysqli_query($con,"SELECT * FROM special_days");
@@ -244,53 +243,53 @@ mysqli_select_db($con,DB_NAME);
 
                             $sundays = intval($days / 7) + ($start->format('N') + $days % 7 >= 7);
                             //Get Sundays ------------------ End
->>>>>>> 25dbdfa43349488ac7452b623b91562911f14040
 
-                            //       $getDate = $row['poyaday'];
-                            //       if (($getDate >= $dateBegin) && ($getDate <= $dateEnd)){
-                            //            $poyadays = $poyadays +1;
-                            //       }
-                            //  }
-                            // //Get Poyadays ------------------ End
-                            // //Get Sundays ------------------ Start
-                            // $sundays = 0;
-                            // $days = $dateBegin->diff($dateEnd, true)->days;
-                            // $sundays = intval($days / 7) + ($dateBegin->format('N') + $days % 7 >= 7);
-                            // //Get Sundays ------------------ End
 
-<<<<<<< HEAD
+                                  $getDate = $row['poyaday'];
+                                  if (($getDate >= $dateBegin) && ($getDate <= $dateEnd)){
+                                       $poyadays = $poyadays +1;
+                                  }
+                             }
+                            //Get Poyadays ------------------ End
+                            //Get Sundays ------------------ Start
+                            $sundays = 0;
+                            $days = $dateBegin->diff($dateEnd, true)->days;
+                            $sundays = intval($days / 7) + ($dateBegin->format('N') + $days % 7 >= 7);
+                            //Get Sundays ------------------ End
+
+
                             // ///////////////////
-                            // if($loan_type =="daily" && $loan_method =="normal"){
+                            if($loan_type =="daily" && $loan_method =="normal"){
 
-                            //   $end_date  = date('Y-m-d', strtotime($end_date. ' + '+$poyadays+' days'));
-=======
+                              $end_date  = date('Y-m-d', strtotime($end_date. ' + '+$poyadays+' days'));
+
                               $end_date  = date('Y-m-d', strtotime($dateEnd. ' + '.$poyadays.' days'));
->>>>>>> 25dbdfa43349488ac7452b623b91562911f14040
 
 
-<<<<<<< HEAD
-                            // }elseif ($loan_type =="daily" && $loan_method =="sunday off"){
-=======
+
+
+                            }elseif ($loan_type =="daily" && $loan_method =="sunday off"){
+
                               $totalDays = $poyadays+$sundays;
                               $end_date  = date('Y-m-d', strtotime($dateEnd. ' + '.$totalDays.' days'));
->>>>>>> 25dbdfa43349488ac7452b623b91562911f14040
 
-                            //   $totalDays = $poyadays+$sundays;
-                            //   $end_date  = date('Y-m-d', strtotime($end_date. ' + '+$totalDays+' days'));
 
-<<<<<<< HEAD
-                            // }elseif($loan_type =="weekly" && $loan_method =="normal"){
+                              $totalDays = $poyadays+$sundays;
+                              $end_date  = date('Y-m-d', strtotime($end_date. ' + '+$totalDays+' days'));
 
-                            //   $end_date  = $dateEnd;
-                            // }elseif($loan_type =="weekly" && $loan_method =="sunday off"){
-                            //   $end_date = date('Y-m-d', strtotime($end_date. ' + '+$sundays+' days'));
-                            // }
-=======
+
+                            }elseif($loan_type =="weekly" && $loan_method =="normal"){
+
+                              $end_date  = $dateEnd;
+                            }elseif($loan_type =="weekly" && $loan_method =="sunday off"){
+                              $end_date = date('Y-m-d', strtotime($end_date. ' + '+$sundays+' days'));
+                            }
+
                               $end_date  = $dateEnd;
                             }elseif($loan_type =="weekly" && $loan_method =="sunday off"){
                               $end_date = date('Y-m-d', strtotime($dateEnd. ' + '.$sundays.' days'));
                             }
->>>>>>> 25dbdfa43349488ac7452b623b91562911f14040
+
 
                             ///////////////////
 
@@ -575,13 +574,13 @@ mysqli_select_db($con,DB_NAME);
     var start_date = $('#l_date').val();
 
     const date = new Date(start_date);
-<<<<<<< HEAD
+
     date.setDate(date.getDate() + Number(no)+1);   
-=======
+
     date.setDate(date.getDate() + Number(no));  
 
     const zeroPad = (num, places) => String(num).padStart(places, '0') 
->>>>>>> 25dbdfa43349488ac7452b623b91562911f14040
+
   
     var dd = date.getDate();
     var mm = date.getMonth() + 1;
