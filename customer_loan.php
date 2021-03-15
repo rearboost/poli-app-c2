@@ -192,6 +192,7 @@ mysqli_select_db($con,DB_NAME);
 
                       <?php
                           if(isset($_POST['submit'])){
+
                             $cust_id          = $_POST['cust_id'];
                             $l_date           = $_POST['l_date'];
                             $l_amt            = $_POST['l_amt'];
@@ -200,14 +201,56 @@ mysqli_select_db($con,DB_NAME);
                             $rental           = $_POST['rental'];
                             $duration         = $_POST['duration'];
                             $end_date        = $_POST['end_date'];
-                            // $end_date = $end_date1->format('Y-m-d');
-                            $loan_type        = $_POST['loan_type'];
-                            $loan_method      = $_POST['loan_method'];
-
+                           
                             $year =  date("Y");
                             $month = date("m");
                             $createDate = date("Y-m-d");
-                  
+
+                            //Get Final End Date 
+
+                            $loan_type    = $_POST['loan_type'];
+                            $loan_method    = $_POST['loan_method'];
+
+                            $dateBegin = date('Y-m-d', strtotime($_POST['l_date']));
+                            $dateEnd = date('Y-m-d', strtotime($_POST['end_date']));
+                             
+                             //Get Poyadays ------------------ Start
+                             $poyadays = 0;
+                             $spDates=mysqli_query($con,"SELECT * FROM special_days");
+                             while($row = mysqli_fetch_assoc($spDates)) {
+
+                                  $getDate = $roe['poyaday'];
+                                  if (($getDate >= $dateBegin) && ($getDate <= $dateEnd)){
+                                       $poyadays = $poyadays +1;
+                                  }
+                             }
+                            //Get Poyadays ------------------ End
+                            //Get Sundays ------------------ Start
+                            $sundays = 0;
+                            $days = $dateBegin->diff($dateEnd, true)->days;
+                            $sundays = intval($days / 7) + ($dateBegin->format('N') + $days % 7 >= 7);
+                            //Get Sundays ------------------ End
+
+                            ///////////////////
+                            if($loan_type =="daily" && $loan_method =="normal"){
+
+                              $end_date  = date('Y-m-d', strtotime($end_date. ' + '+$poyadays+' days'));
+
+
+                            }elseif ($loan_type =="daily" && $loan_method =="sunday off"){
+
+                              $totalDays = $poyadays+$sundays;
+                              $end_date  = date('Y-m-d', strtotime($end_date. ' + '+$totalDays+' days'));
+
+                            }elseif($loan_type =="weekly" && $loan_method =="normal"){
+
+                              $end_date  = $dateEnd;
+                            }elseif($loan_type =="weekly" && $loan_method =="sunday off"){
+                              $end_date = date('Y-m-d', strtotime($end_date. ' + '+$sundays+' days'));
+                            }
+
+                            ///////////////////
+
                             $querySummary = "SELECT id ,loanAMT FROM summary WHERE year='$year' AND month='$month' ";
                             $resultSummary = mysqli_query($con ,$querySummary);
 
@@ -491,7 +534,12 @@ mysqli_select_db($con,DB_NAME);
 
     const date = new Date(start_date);
     date.setDate(date.getDate() + Number(no));   
-    end_date = new Date(date);
+  
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1;
+    var y = date.getFullYear();
+
+    var end_date = mm + '/'+ dd + '/'+ y;
 
     $('#end_date').val(end_date);
 
@@ -522,7 +570,7 @@ mysqli_select_db($con,DB_NAME);
           type: 'post',
           url: 'customer_loan.php',
           data: $('#loanAdd').serialize(),
-          success: function () {
+          success: function (data) {
             swal({
               title: "Good job !",
               text: "Successfully Submited",
