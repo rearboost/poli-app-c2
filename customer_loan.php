@@ -305,14 +305,13 @@ mysqli_select_db($con,DB_NAME);
                           $loan_no  = $row['loan_no'];
                           $l_date   = strtotime($row['l_date']);
                           $loan_amt = $row['amount'];
-                          // $interest = $row['value_of_interest'];
 
                         $check = mysqli_query($con,"SELECT * FROM (SELECT * FROM loan_installement WHERE loan_installement.loan_no = '$loan_no') V ORDER BY V.id DESC LIMIT 1;");
 
                         $data1 = mysqli_fetch_array($check); 
 
                         $li_date         = strtotime($data1['li_date']);
-                        $remaining_amt   = $data1['remaining_amt'];
+                        //$remaining_amt   = $data1['remaining_amt'];
                         $now_date        = time();
 
                         // if(empty($remaining_amt))

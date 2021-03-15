@@ -16,10 +16,10 @@
 
           <table class="table" id="" >
             <thead class="text-primary">
-              <th>                    DATE             </th>
-              <th class="text-right"> INSTALLEMENT AMT </th>
-              <th class="text-right"> INTEREST AMT     </th>
-              <th class="text-right"> REMAINING AMT    </th>
+              <th>                    DATE            </th>
+              <th class="text-right"> PAID            </th>
+              <th class="text-right"> TOTAL PAID      </th>
+              <th class="text-right"> BROUGHT FORWARD </th>
             </thead>
             <tbody>
 
@@ -27,7 +27,7 @@
 
             $loan_no = $_POST['id'];
 
-            $query = mysqli_query($con,"SELECT  I.li_date as li_date, I.installement_amt as installement, I.interest_amt as interest, I.remaining_amt as remaining
+            $query = mysqli_query($con,"SELECT  I.li_date as li_date, I.paid as paid, I.total_paid as total_paid, I.brought_forward as brought_forward
               FROM loan L
               INNER JOIN loan_installement I
                 ON L.loan_no = I.loan_no
@@ -40,9 +40,9 @@
         ?>
               <tr>
                 <td>                    <?php echo $row1['li_date'] ?>       </td>
-                <td class="text-right"> <?php echo $row1['installement'] ?>  </td>
-                <td class="text-right"> <?php echo $row1['interest'] ?>      </td>
-                <td class="text-right"> <?php echo $row1['remaining'] ?>     </td>
+                <td class="text-right"> <?php echo $row1['paid'] ?>  </td>
+                <td class="text-right"> <?php echo $row1['total_paid'] ?>      </td>
+                <td class="text-right"> <?php echo $row1['brought_forward'] ?>     </td>
               </tr>
             </tbody>
         <?php
