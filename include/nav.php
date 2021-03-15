@@ -18,18 +18,18 @@
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
         
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
             <a class="nav-link" href="notification">
                 <i class="nc-icon nc-bell-55"></i>
                 <h6 style='color:red;'>
                 <?php
-                if($numRows>0){
-                    echo " " . $numRows . " NEW ";
-                }
+                //if($numRows>0){
+                 //   echo " " . $numRows . " NEW ";
+                //}
                 ?>
                 </h6>
             </a>
-            </li>
+            </li> -->
             <li class="nav-item">
             Loged as <?php echo $_SESSION['loged_user'] ?>&nbsp; 
             <a href="#" onclick="confirmationLogout(event)" class="btn btn-danger square-btn-adjust">Logout</a> 
