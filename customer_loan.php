@@ -235,27 +235,19 @@ mysqli_select_db($con,DB_NAME);
                             $sundays = intval($days / 7) + ($start->format('N') + $days % 7 >= 7);
                             //Get Sundays ------------------ End
 
-                            $sundays = array();
-                            while ($dateBegin <= $dateEnd) {
-                                if ($dateBegin->format('w') == 0) {
-                                    $sundays[] = $dateBegin->format('Y-m-d');
-                                }
-                                
-                                $dateBegin->modify('+1 day');
-                            }
-
                             $sunAndpoyaday = 0;
-                            $spDates=mysqli_query($con,"SELECT * FROM special_days");
-
-                            foreach ($sundays as $value) {
-
-                                while($row = mysqli_fetch_assoc($spDates)) {
-
-                                      $getDate = $row['poyaday'];
-                                      if ($value == $getDate){
-                                          $sunAndpoyaday = $sunAndpoyaday +1;
-                                      }
+    
+                            while ($start <= $end) {
+                                if ($start->format('w') == 0) {
+                                    $spDates=mysqli_query($con,"SELECT * FROM special_days");
+                                    while($row = mysqli_fetch_assoc($spDates)) {
+                                        $getDate = $row['poyaday'];
+                                        if ($start->format('Y-m-d') == $getDate){
+                                            $sunAndpoyaday = $sunAndpoyaday +1;
+                                        }
+                                    }
                                 }
+                                $start->modify('+1 day');
                             }
 
                             //////////////////////////
