@@ -295,7 +295,7 @@ mysqli_select_db($con,DB_NAME);
                           		$loan_no = $row_l['loan_no'];
                           		$loan_amount = $row_l['amount'];
 
-                          $insert = "INSERT INTO loan_installement (id,li_date,month,year,paid,arrears, total_paid,brought_forward,loan_no) VALUES ($li_id,'$li_date',$debt_month,$debt_year,$paid,$arreares,$total_paid,$brought_forward,$loan_no)";
+                          $insert = "INSERT INTO loan_installement (id,li_date,month,year,paid,arrears, total_paid,brought_forward,loan_no) VALUES ($li_id,'$li_date','$debt_month','$debt_year',$paid,$arreares,$total_paid,$brought_forward,$loan_no)";
                           mysqli_query($con,$insert);
 
                           if($brought_forward <= 0){
@@ -335,27 +335,26 @@ mysqli_select_db($con,DB_NAME);
                  
                       if($numRows > 0) {
                         while($row = mysqli_fetch_assoc($result)) {
-                        	?>
-                            
-                            <tr>
-                            <td>                    <?php echo $row['id']  ?>              </td>
-                            <td>                    <?php echo $row['li_date']  ?>         </td>
-                            <td class="text-right"> <?php echo $row['paid']?>              </td>
-                            <td class="text-right"> <?php echo $row['arrears'] ?>          </td>
-                            <td class="text-right"> <?php echo $row['paid']?>              </td>
-                            <td class="text-right"> <?php echo $row['total_paid']?>        </td>
-                            <td class="text-right"> <?php echo $row[' brought_forward'] ?> </td>
-                            <td class="text-right"> <?php echo $row['loan_no']  ?>         </td>
-                           
-                          	<td class="text-center">  
-                            	<a href="#" onclick="confirmation('event','<?php echo $row['id']; ?>')" name="delete">
-                            	<i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                          	</td>
-                            <td class="text-center">  
-                            	<a href="#" onclick="printView(<?php echo $row['id']; ?>)" name="print">
-                              <i class="fa fa-print" aria-hidden="true"></i></a>
-                          	</td>
-                           </tr>
+                      ?>   
+                        <tr>
+                        <td>                    <?php echo $row['id']  ?>             </td>
+                        <td>                    <?php echo $row['li_date']  ?>        </td>
+                        <td class="text-right"> <?php echo $row['paid']?>             </td>
+                        <td class="text-right"> <?php echo $row['arrears'] ?>         </td>
+                        <td class="text-right"> <?php echo $row['paid']?>             </td>
+                        <td class="text-right"> <?php echo $row['total_paid']?>       </td>
+                        <td class="text-right"> <?php echo $row['brought_forward'] ?> </td>
+                        <td class="text-right"> <?php echo $row['loan_no']  ?>        </td>
+                       
+                      	<td class="text-center">  
+                        	<a href="#" onclick="confirmation('event','<?php echo $row['id']; ?>')" name="delete">
+                        	<i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                      	</td>
+                        <td class="text-center">  
+                        	<a href="#" onclick="printView(<?php echo $row['id']; ?>)" name="print">
+                          <i class="fa fa-print" aria-hidden="true"></i></a>
+                      	</td>
+                       </tr>
                            </tbody>
 
                      <?php
@@ -427,10 +426,10 @@ mysqli_select_db($con,DB_NAME);
           $('#type').val(obj.l_type);
           $('#method').val(obj.l_method);
           $('#loan_amt').val(obj.loan_amt);
-          $('#brought_forward').val(obj.brought_forward.toFixed(2));
+          $('#brought_forward').val(obj.brought_forward);
           $('#rental').val(obj.rental);
-          $('#total_paid').val(obj.total_paid.toFixed(2));
-          $('#arreares').val(obj.arrears.toFixed(2));
+          $('#total_paid').val(obj.total_paid);
+          $('#arreares').val(obj.arrears);
           $('#no_installements').val(obj.no_installements);
 
           var pre_date  =  obj.pre_date

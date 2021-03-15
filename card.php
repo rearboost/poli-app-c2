@@ -15,13 +15,29 @@
 	$card_2 = mysqli_num_rows($loan_count);
 
 	//////////// card 3 /////////////
-	$cheque_count = mysqli_query($con, "SELECT cheque_id FROM cheque WHERE valid_date <= curdate() AND status = 'NYC'");
-	$card_3 = mysqli_num_rows($cheque_count); 
+	// $cheque_count = mysqli_query($con, "SELECT cheque_id FROM cheque WHERE valid_date <= curdate() AND status = 'NYC'");
+	// $card_3 = mysqli_num_rows($cheque_count); 
 
 	//////////// card 4 /////////////
-	$cheque_amt = mysqli_query($con, "SELECT SUM(cheque_value) as tot_cheque_amt FROM cheque WHERE valid_date <= curdate() AND status = 'NYC'");
-	$sum = mysqli_fetch_array($cheque_amt); 
-	$card_4 = $sum['tot_cheque_amt']; 
+	// $cheque_amt = mysqli_query($con, "SELECT SUM(cheque_value) as tot_cheque_amt FROM cheque WHERE valid_date <= curdate() AND status = 'NYC'");
+	// $sum = mysqli_fetch_array($cheque_amt); 
+	// $card_4 = $sum['tot_cheque_amt']; 
+	$date = new DateTime(null, new DateTimeZone('Etc/GMT+8'));
+    $new_date = $date->format('Y-m-d'); 
+    $today = explode('-', $new_date);
+
+    $cur_month = $today[1];
+
+	$collect_amt = mysqli_query($con, "SELECT SUM(paid) as tot_collect FROM loan_installement WHERE month = '$cur_month' ");
+	$sum = mysqli_fetch_array($collect_amt); 
+
+	$card_4 = $sum['tot_collect']; 
+
+	if(!empty($card_4)){
+		$card_4 = $sum['tot_collect']; 
+	}else{
+		$card_4 = '0.00'; 
+	}
 
 
 ?>

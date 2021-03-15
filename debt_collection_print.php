@@ -50,9 +50,10 @@ mysqli_select_db($con,DB_NAME);
        <div class="print_form">
         <form >
           <div>
-            <img src="images/logo.png" style="padding-left: 30px;"><br>
-             <span style="padding-left: 20px; font-size: 16px; color: black;"><b>National Micro Credit on</b></span><br>
-             <span style="padding-left: 28px; font-size: 16px; color: black;"><b> Investment (Pvt) Ltd.</b></span><br>
+            <br>
+            <img src="images/logo.png" style="padding-left: 6%;"><br>
+             <span style="padding-left: 20px; font-size: 14px; color: black;"><b>National Micro Credit on</b></span><br>
+             <span style="padding-left: 28px; font-size: 14px; color: black;"><b> Investment (Pvt) Ltd.</b></span><br>
              <span style="padding-left: 32px; font-size: revert; color: black;">(Reg No. PV00214503)</span><br><br>
              <span style="font-size: small; color: black;"><b>Installement Receipt</b></span><br>
              <span style="font-size: small; color: black;">Tel : 076 0364 350 / 070 3625 796</span><br>
@@ -61,116 +62,73 @@ mysqli_select_db($con,DB_NAME);
                 $date = new DateTime(null, new DateTimeZone('Etc/GMT+8'));
                         echo $date->format('Y-m-d h:i:sA'); ?>       
               </span><br>
-              <span style="font-size: small; color: black;">Route : Mahiyanganaya - Hadungamuwa</span><br>
+              <span style="font-size: small; color: black;">Route : Mahiyangana-Hadungamuwa</span><br>
               <span style="font-size: small; color: black;">Cash coll : Mr.Wijethunga</span><br>
           </div>
+          <span style="color: black;">--------------------------------------------------</span> <br>
+
+          <span style="font-size: small; color: black;">Customer : 
+          <?php
+             $name_id = $data['cust_id'];
+             $custom = "SELECT * FROM customer WHERE cust_id = '$name_id' ";
+             $result1 = mysqli_query($con,$custom);
+             $dataName = mysqli_fetch_array($result1);
+             echo $dataName['name'];
+          ?>
+          </span><br>
+          <span style="padding-left: 83px; font-size: small;"><?php echo "( ".$data['cust_id']." )" ?></span> <br>
+
+          <span style="font-size: small; color: black;">Loan Amount : 
+          <?php $amount = $data['amount'];
+                echo number_format($amount,2,".",",") 
+          ?>
+          </span><br>
+
+          <span style="font-size: small; color: black;">Rental : 
+          <?php $rental = $data['rental'];
+                echo number_format($rental,2,".",",")  
+          ?>
+          </span><br>
+
+          <span style="font-size: small; color: black;">Duration : 
+          <?php echo $data['duration'] ?>
+          </span><br>
+
+          <span style="font-size: small; color: black;">Start Date : 
+          <?php echo $data['l_date'] ?>
+          </span><br>
+
+          <span style="font-size: small; color: black;">End Date : 
+          <?php echo $data['end_date'] ?>
+          </span><br>
+
+          <span style="color: black;">--------------------------------------------------</span> <br>
+
+          <span style="font-size: small; color: black;">Today paid : 
+          <?php $paid = $data['paid'];
+                echo number_format($paid,2,".",",") 
+          ?>
+          </span><br>
+
+          <span style="font-size: small; color: black;">Arreares/Additional : 
+          <?php $arrears = $data['arrears'];
+                echo number_format($arrears,2,".",",") 
+          ?>
+          </span><br>
+
+          <span style="font-size: small; color: black;">Total paid : 
+          <?php $total_paid = $data['total_paid'];
+                echo number_format($total_paid,2,".",",")  
+          ?>
+          </span><br>
+
+          <span style="font-size: small; color: black;">Brought forward : 
+          <?php $brought_forward =$data['brought_forward'];
+                echo number_format($brought_forward,2,".",",") ?>
+          </span><br>
+
           <span style="color: black;">--------------------------------------------------</span>
-
-            <div class="row"> 
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label style="color: black; margin-bottom: 0;"><b>Customer</b></label><span style="color: black;"> :  
-                  <?php
-                     $name_id = $data['cust_id'];
-                     $custom = "SELECT * FROM customer WHERE cust_id = '$name_id' ";
-                     $result1 = mysqli_query($con,$custom);
-                     $dataName = mysqli_fetch_array($result1);
-                     echo $dataName['name'];
-                  
-                     ?>
-                    </span><br>
-                    <span style="padding-left: 83px; font-size: small;"><b><?php echo "( ".$data['cust_id']." )" ?></b></span>
-                </div>
-              </div> 
-            </div>  
-
-            <div class="row"> 
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label style="color: black;"><b>Duration</b></label><span style="color: black;"> :  <?php echo $data['duration'] ?></span>
-                </div>
-              </div> 
-            </div> 
-
-            <div class="row"> 
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label style="color: black;"><b>Start Date</b></label><span style="color: black;"> :  <?php echo $data['start_date'] ?></span>
-                </div>
-              </div> 
-            </div> 
-
-            <div class="row"> 
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label style="color: black;"><b>End Date</b></label><span style="color: black;"> :  <?php echo $data['li_date'] ?></span>
-                </div>
-              </div> 
-            </div> 
-
-            <div class="row"> 
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label  style="color: black;"><b>Loan Amount</b></label><span style="color: black;"> : Rs <?php
-                                  $amount = $data['amount'];
-                                  echo number_format($amount,2,".",",") ?>
-                </div>
-              </div> 
-            </div> 
-            <span style="color: black;">--------------------------------------------------</span>
-
-            <div class="row">
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label  style="color: black;"><b>Installment amt</b></label><span style="color: black;"> : Rs <?php 
-                                $installement_amt = $data['installement_amt'];
-                                echo number_format($installement_amt,2,".",",") ?>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">                  
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label  style="color: black;"><b>Interest amount</b></label><span style="color: black;"> : Rs <?php 
-                                $interest_amt = $data['interest_amt'];
-                                echo number_format($interest_amt,2,".",",") ?>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 pr-1">
-                <div class="form-group" style="margin-bottom: 0px;">
-                  <label  style="color: black;"><b>Total paid amt</b></label><span style="color: black;"> : Rs <?php
-                                   $paid =  $data['paid'];
-                                   echo number_format($paid,2,".",",") ?>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 pr-1">
-                <div class="form-group" style="margin-bottom: 0px;">
-                  <label  style="color: black;"><b>Remaining int</b></label><span style="color: black;"> : Rs <?php 
-                                  $remaining_int_amt=$data['remaining_int_amt'];
-                                  echo number_format($remaining_int_amt,2,".",",") ?>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-6 pr-1">
-                <div class="form-group" style="margin-bottom: 0px;">
-                  <label  style="color: black;"><b>Remaining amt</b></label><span style="color: black;"> : Rs <?php 
-                                  $remaining_amt = $data['remaining_amt'];
-                                  echo number_format($remaining_amt,2,".",",")?>
-                </div>
-              </div>
-            </div>
-            
-            <span style="color: black;">--------------------------------------------------</span>
-            <h5 style="padding-left: 45px; font-size: small; color: black;"><b>THANK YOU!</b></h5>
+          <h5 style="padding-left: 5%; font-size: small; color: black;"><b>THANK YOU!</b></h5>
          </form> 
        </div>
   </div>

@@ -51,7 +51,7 @@ if (!isset($_SESSION['loged_user'])) {
       <!-- End Navbar -->
       <div class="content">
         <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-body ">
                 <div class="row">
@@ -81,7 +81,7 @@ if (!isset($_SESSION['loged_user'])) {
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-body ">
                 <div class="row">
@@ -111,7 +111,7 @@ if (!isset($_SESSION['loged_user'])) {
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
+          <!-- <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-body ">
                 <div class="row">
@@ -125,7 +125,7 @@ if (!isset($_SESSION['loged_user'])) {
                       <p class="card-category">Valid Cheques</p>
                       <p class="card-title">
                         <?php
-                          echo $card_3;
+                         // echo $card_3;
                         ?>
                       <p>
                     </div>
@@ -140,19 +140,19 @@ if (!isset($_SESSION['loged_user'])) {
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
+          </div> -->
+          <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-money-coins text-primary"></i>
+                      <i class="nc-icon nc-money-coins text-danger"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Outstanding</p>
+                      <p class="card-category">Monthly collection</p>
                     </div>
                       <p class="card-title" style="text-align:right;margin-top:6px;">
                         <?php
@@ -166,8 +166,8 @@ if (!isset($_SESSION['loged_user'])) {
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Total cheque Amount
+                  <i class="fa fa-clock-o"></i>
+                  In this month
                 </div>
               </div>
             </div>
