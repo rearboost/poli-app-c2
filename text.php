@@ -14,6 +14,15 @@
       
 <?php
 
+
+$end_date = '2021-06-23';
+$poyadays = 3;
+
+echo date('Y-m-d', strtotime($end_date. ' + '.$poyadays.'days'));
+
+// echo date('Y-m-d', strtotime("2021-06-23 +3 days"));
+
+
 ?>
 
 <script type="text/javascript">
