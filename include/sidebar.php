@@ -76,21 +76,22 @@
             </a>
           </li>
 
-          <li 
-            <?php if (basename($_SERVER['PHP_SELF'])=='cheque_transfer.php')
-            {
-             echo 'class="active"';
-            } else 
-            {
-             echo 'class=""'; 
-            } 
+          <!-- <li 
+            <?php 
+            // if (basename($_SERVER['PHP_SELF'])=='cheque_transfer.php')
+            // {
+            //  echo 'class="active"';
+            // } else 
+            // {
+            //  echo 'class=""'; 
+            // } 
             ?>
-            >
-            <a href="cheque_transfer">
+            > -->
+            <!-- <a href="cheque_transfer">
               <i class="nc-icon nc-tap-01"></i>
               <p>CHEQUE TRANSFER</p>
             </a>
-          </li>
+          </li> -->
 
           <li 
             <?php if (basename($_SERVER['PHP_SELF'])=='report.php')
@@ -119,7 +120,7 @@
             ?>
             >
             <a href="income">
-              <i class="nc-icon nc-single-copy-04"></i>
+              <i class="nc-icon nc-tap-01"></i>
               <p>Income Report</p>
             </a>
           </li>
