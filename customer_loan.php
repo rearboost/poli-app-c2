@@ -245,9 +245,10 @@ mysqli_select_db($con,DB_NAME);
                             }
 
                             $sunAndpoyaday = 0;
+                            $spDates=mysqli_query($con,"SELECT * FROM special_days");
 
                             foreach ($sundays as $value) {
-                                $spDates=mysqli_query($con,"SELECT * FROM special_days");
+
                                 while($row = mysqli_fetch_assoc($spDates)) {
 
                                       $getDate = $row['poyaday'];
