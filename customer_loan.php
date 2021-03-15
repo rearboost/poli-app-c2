@@ -105,7 +105,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-6 pr-3">
                       <div class="form-group" >
                         <label>Date of obtaining loan</label>
-                        <input type="date" name="l_date" class="form-control" required>
+                        <input type="date" id="l_date" name="l_date" class="form-control" required>
                       </div>
                     </div>
                   </div>
@@ -119,7 +119,49 @@ mysqli_select_db($con,DB_NAME);
                     </div>
 
                     <div class="col-md-6 pr-3">
-                      <div class="form-group" id="type">
+                      <div class="form-group">
+                        <label>Interest (%)</label>
+                        <input type="text" class="form-control customerAmt" placeholder="Interest" id="int" name="interest" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 pr-3">
+                      <div class="form-group">
+                        <label>No: of Installements</label>
+                        <select class="form-control" id="no_installements" name = "no_installements" required>
+                          <option selected="" disabled="">-- select --</option>
+                          <option value="60">60</option>
+                          <option value="90">90</option>
+                          <option value="100">100</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-6 pr-3">
+                      <div class="form-group">
+                        <label>Rental</label>
+                        <input type="text" class="form-control" id="rental" name = "rental" required readonly>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 pr-3">
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="duration" name = "duration" placeholder="Duration" required readonly>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 pr-3">
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="end_date" name = "end_date" placeholder="End date" required readonly>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 pr-3">
+                      <div class="form-group" style="border:2px solid; border-radius: 10px; padding: 10px; border-color: #ccccb3;">
                         <label>Loan Type</label> <br>
                         <label><input type="radio" id="t1" name="loan_type" value="daily" checked=""> Daily
                         </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -128,26 +170,9 @@ mysqli_select_db($con,DB_NAME);
                         </label><br>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="row">
                     <div class="col-md-6 pr-3">
-                      <div class="form-group">
-                        <label>Interest (%)</label>
-                        <input type="text" class="form-control customerAmt" placeholder="Interest" id="int" name="interest" required>
-                      </div>
-                    </div>
-                    <div class="col-md-6 pr-3">
-                      <div class="form-group">
-                        <label>Daily Interest</label>
-                        <input type="text" class="form-control" id="daily_int" name = "daily_int" required readonly>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6 pr-3">
-                      <div class="form-group" id="type">
+                      <div class="form-group" style="border:2px solid; border-radius: 10px; padding: 10px; border-color: #ccccb3;">
                         <label>Payment Method</label> <br>
                         <label><input type="radio" id="m1" name="loan_method" value="normal" checked=""> Noramal
                         </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -167,13 +192,17 @@ mysqli_select_db($con,DB_NAME);
 
                       <?php
                           if(isset($_POST['submit'])){
-                            $cust_id     = $_POST['cust_id'];
-                            $l_date      = $_POST['l_date'];
-                            $l_amt       = $_POST['l_amt'];
-                            $interest    = $_POST['interest'];
-                            $int_amt     = $_POST['daily_int'];
-                            $loan_type   = $_POST['loan_type'];
-                            $loan_method = $_POST['loan_method'];
+                            $cust_id          = $_POST['cust_id'];
+                            $l_date           = $_POST['l_date'];
+                            $l_amt            = $_POST['l_amt'];
+                            $interest         = $_POST['interest'];
+                            $no_installements = $_POST['no_installements'];
+                            $rental           = $_POST['rental'];
+                            $duration         = $_POST['duration'];
+                            $end_date        = $_POST['end_date'];
+                            // $end_date = $end_date1->format('Y-m-d');
+                            $loan_type        = $_POST['loan_type'];
+                            $loan_method      = $_POST['loan_method'];
 
                             $year =  date("Y");
                             $month = date("m");
@@ -233,8 +262,8 @@ mysqli_select_db($con,DB_NAME);
                                 }
                             }
 
-                            $insert2 = "INSERT INTO loan (l_date,amount,interest,value_of_interest,cust_id,l_status,l_type,l_method) 
-                              VALUES ('$l_date',$l_amt,$interest,$int_amt,'$cust_id',1,'$loan_type','$loan_method')";                         
+                            $insert2 = "INSERT INTO loan (l_date,amount,interest,no_installements,rental,duration,end_date,cust_id,l_status,l_type,l_method) 
+                              VALUES ('$l_date',$l_amt,$interest,$no_installements,$rental,$duration,'$end_date','$cust_id',1,'$loan_type','$loan_method')";                         
                             mysqli_query($con,$insert2);
 
                           }
@@ -251,18 +280,18 @@ mysqli_select_db($con,DB_NAME);
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                     <thead class="text-primary">
-                      <th>                      #</th>
-                      <th>                      Date</th>
-                      <th class="text-right">   Loan Amt</th>
-                      <th class="text-right">   Days</th>
-                      <th class="text-right">   Remain Amt</th>
-                      <th class="text-right">   Int (%)</th>                   
-                      <th class="text-right">   Daily Int</th>
-                      <th class="text-center">  Status</th>
-                      <th class="text-center">  Type</th>
-                      <th class="text-center">  Method</th>
-                      <th>                      cust.ID</th>
-                      <th class="text-center">  Edit 				</th>
+                      <th>                      #           </th>
+                      <th>                      Start Date  </th>              
+                      <th>                      End Date    </th>
+                      <th class="text-right">   Loan Amt    </th>
+                      <th class="text-right">   Int (%)     </th> 
+                      <th class="text-right">   Rental      </th> 
+                      <th class="text-right">   Duration    </th>   
+                      <th class="text-center">  Status      </th>
+                      <th class="text-center">  Type        </th>
+                      <th class="text-center">  Method      </th>
+                      <th>                      cust.ID     </th>
+                      <th class="text-center">  View 				</th>
                       <th class="text-center">  Delete 			</th>
                     </thead>
                     <tbody>
@@ -276,9 +305,7 @@ mysqli_select_db($con,DB_NAME);
                           $loan_no  = $row['loan_no'];
                           $l_date   = strtotime($row['l_date']);
                           $loan_amt = $row['amount'];
-                          $interest = $row['value_of_interest'];
-
-
+                          // $interest = $row['value_of_interest'];
 
                         $check = mysqli_query($con,"SELECT * FROM (SELECT * FROM loan_installement WHERE loan_installement.loan_no = '$loan_no') V ORDER BY V.id DESC LIMIT 1;");
 
@@ -288,24 +315,24 @@ mysqli_select_db($con,DB_NAME);
                         $remaining_amt   = $data1['remaining_amt'];
                         $now_date        = time();
 
-                        if(empty($remaining_amt))
-                        {
-                           $pre_date   = $l_date;  
-                           $remain_amt = $loan_amt;
-                           $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
-                           $remain_amount = ($remain_amt + ($interest*$Days));
-                        }
-                        else if($remaining_amt==0){
-                           $Days = 0;
-                           $remain_amount = 0.00;
-                        }
-                        else
-                        {
-                           $pre_date   = $li_date;
-                           $remain_amt = $remaining_amt;
-                           $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
-                           $remain_amount = ($remain_amt + ($interest*$Days));
-                        }
+                        // if(empty($remaining_amt))
+                        // {
+                        //    $pre_date   = $l_date;  
+                        //    $remain_amt = $loan_amt;
+                        //    $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
+                        //    $remain_amount = ($remain_amt + ($interest*$Days));
+                        // }
+                        // else if($remaining_amt==0){
+                        //    $Days = 0;
+                        //    $remain_amount = 0.00;
+                        // }
+                        // else
+                        // {
+                        //    $pre_date   = $li_date;
+                        //    $remain_amt = $remaining_amt;
+                        //    $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
+                        //    $remain_amount = ($remain_amt + ($interest*$Days));
+                        // }
 
                         $l_status = $row['l_status'];
                         if($l_status==1){
@@ -318,11 +345,12 @@ mysqli_select_db($con,DB_NAME);
                     <tr>
                       <td>                   <?php echo $row['loan_no']?>  </td>
                       <td>                   <?php echo $row['l_date']?>   </td>
+                      <td>                   <?php echo $row['end_date']?>   </td>
                       <td class="text-right"><?php echo number_format($row['amount'],2)?>  </td>
-                      <td class="text-right"><?php echo $Days; ?>   </td>
-                      <td class="text-right"><?php echo number_format($remain_amount,2);?></td>
                       <td class="text-right"><?php echo $row['interest']?> </td>
-                      <td class="text-right"><?php echo number_format($row['value_of_interest'],2)?> </td>
+                      <!-- <td class="text-right"><?php // echo number_format($remain_amount,2);?></td> -->
+                      <td class="text-right"><?php echo number_format($row['rental'],2)?> </td>
+                      <td class="text-right"><?php echo $row['duration']?> </td>
                       <td class="text-center"><?php echo $view_satus; ?> </td>
                       <td class="text-center"><?php echo $row['l_type'] ?> </td>
                       <td class="text-center"><?php echo $row['l_method'] ?> </td>
@@ -330,7 +358,7 @@ mysqli_select_db($con,DB_NAME);
 
                       <td class="text-center">  
                         <a href="#" onclick="editView(<?php echo $row['loan_no']; ?>)" name="edit">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <i class="fa fa-eye" aria-hidden="true"></i></a>
                       </td>
 
                       <td class="text-center">  
@@ -380,36 +408,12 @@ mysqli_select_db($con,DB_NAME);
   <!--  Notifications Plugin    -->
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <!-- <script src="assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script> --><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="assets/demo/demo.js"></script>
   <!-- sweetalert message -->
   <script src="assets/js/sweetalert.min.js"></script>
 
 <script>
-    /////////////////CHECK IF THE CUSTOMER LOAN EXIST//////////////////////////
-
-    $('#customer_loan').on('change', function() {
-
-      $.ajax({
-        url: 'cust_loan_verify.php',
-        method:"POST",
-        data:{cust_id:this.value},
-        success: function (response) {//response is value returned from php 
-          //alert(data)
-          //$('#show').html(response);
-          $("#show").removeAttr('class');
-          if(response==1){
-             $('#show').html("");
-             $("#show").css({"color": "green"});
-          }else{
-             $('#show').html("Already You have a loan");
-             $("#show").css({"color": "red"});
-             setTimeout(function(){ $("#customer_loan").val("");  $('#show').html("") }, 1500);
-          }
-          $("#show").css({"padding": "5px" , "font-size":"small"});
-        }
-      });
-    });  
 
   /////////////////////////////////////// Table Search ///////////////////////////
     $(document).ready(function(){
@@ -421,111 +425,174 @@ mysqli_select_db($con,DB_NAME);
       });
     });
 
+  /////////////////CHECK IF THE CUSTOMER LOAN EXIST//////////////////////////
+  $('#customer_loan').on('change', function() {
 
-    ///////// Form values reset /////////
-    function form_reset(){
-      document.getElementById("loanAdd").reset();
-    }
-
-    //////////////////// 
-
-    // Form edit 
-    function editView(id){
-
-      $.ajax({
-              url:"edit_loan.php",
-              method:"POST",
-              data:{"id":id},
-              success:function(data){
-                $('#show_view').html(data);
-                $('#Form2').modal('show');
-              }
-        });
-    }
-    //////////////////// 
-
-    $('.customerAmt').on('keyup',function(){
-        customerAmt()
+    $.ajax({
+      url: 'cust_loan_verify.php',
+      method:"POST",
+      data:{cust_id:this.value},
+      success: function (response) {//response is value returned from php 
+        //alert(data)
+        //$('#show').html(response);
+        $("#show").removeAttr('class');
+        if(response==1){
+           $('#show').html("");
+           $("#show").css({"color": "green"});
+        }else{
+           $('#show').html("Already You have a loan");
+           $("#show").css({"color": "red"});
+           setTimeout(function(){ $("#customer_loan").val("");  $('#show').html("") }, 1500);
+        }
+        $("#show").css({"padding": "5px" , "font-size":"small"});
+      }
     });
+  });  
 
-    function customerAmt(){
+  /////////// calculate rental when keyup //////////////////// 
 
-      var amount = $('#amount').val();
-      var int  = $('#int').val();
-      
-      var daily_interest;
+  $('.customerAmt').on('keyup',function(){
+      customerAmt()
+  });
 
-      daily_interest = (Number(amount)*(Number(int)/100))/30;
-      
-      $('#daily_int').val(daily_interest.toFixed(2));
+  function customerAmt(){
+
+    var amount = $('#amount').val();
+    var int  = $('#int').val();
+    var no  = $('#no_installements').val();
+    var interest;
+    var rental;
+
+    interest = (Number(amount)*(Number(int)/100)*no)/30;
+    rental = Number(amount)+Number(interest);
     
-    } 
+    $('#rental').val(rental.toFixed(2));
+  
+  } 
 
-    ///////////////////////////////////////////////////
+  /////////// no_installements onchange //////////////////// 
+  $('#no_installements').on('change',function(){
 
-    $(function () {
+    /////////////////calculate rental///////////////
 
-        $('#loanAdd').on('submit', function (e) {
+    var amount = $('#amount').val();
+    var int  = $('#int').val();
+    var no  = $('#no_installements').val();
+    var interest;
+    var rental;
 
-          e.preventDefault();
+    interest = (Number(amount)*(Number(int)/100)*no)/30;
+    rental = (Number(amount)+Number(interest))/no;
+    
+    $('#rental').val(rental.toFixed(2));
 
-          $.ajax({
-            type: 'post',
-            url: 'customer_loan.php',
-            data: $('#loanAdd').serialize(),
-            success: function () {
-              swal({
-                title: "Good job !",
-                text: "Successfully Submited",
-                icon: "success",
-                button: "Ok !",
-                });
-                setTimeout(function(){ location.reload(); }, 2500);
-               }
-          });
+    ///////////////calc end date //////////////////
+    var start_date = $('#l_date').val();
 
+    const date = new Date(start_date);
+    date.setDate(date.getDate() + Number(no));   
+    end_date = new Date(date);
+
+    $('#end_date').val(end_date);
+
+    if(no==60)
+    {
+      duration = 59;
+    }
+    else if(no==90)
+    {
+      duration = 89;
+    }else
+    {
+      duration = 99;
+    }
+    $('#duration').val(duration);
+
+  });
+
+  ///////////////////////////////////////////////////
+
+  $(function () {
+
+      $('#loanAdd').on('submit', function (e) {
+
+        e.preventDefault();
+
+        $.ajax({
+          type: 'post',
+          url: 'customer_loan.php',
+          data: $('#loanAdd').serialize(),
+          success: function () {
+            swal({
+              title: "Good job !",
+              text: "Successfully Submited",
+              icon: "success",
+              button: "Ok !",
+              });
+              setTimeout(function(){ location.reload(); }, 2500);
+             }
         });
 
       });
 
-    ////////////////////  
+    });
 
-    // Form delete 
-    function delete_loan(id){
+  
+  ///////// Form values reset /////////
+  function form_reset(){
+    document.getElementById("loanAdd").reset();
+  }
 
-      $.ajax({
-              url:"delete_loan",
-              method:"POST",
-              data:{"id":id},
-              success:function(data){
-                  swal({
-                  title: "Good job !",
-                  text: data,
-                  icon: "success",
-                  button: "Ok !",
-                  });
-                  setTimeout(function(){ location.reload(); }, 2500);
-      
-              }
-        });
-    }
+  ////////// Form edit ////////////
+  function editView(id){
 
-    // delete confirmation javascript
-    function confirmation(e,id) {
-        swal({
-        title: "Are you sure?",
-        text: "Want to Delete this recode !",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-               delete_loan(id)
-            } 
-        });
-    }
-    ////////////////////  
+    $.ajax({
+            url:"edit_loan.php",
+            method:"POST",
+            data:{"id":id},
+            success:function(data){
+              $('#show_view').html(data);
+              $('#Form2').modal('show');
+            }
+      });
+  }
+
+  // Form delete 
+  function delete_loan(id){
+
+    $.ajax({
+            url:"delete_loan",
+            method:"POST",
+            data:{"id":id},
+            success:function(data){
+                swal({
+                title: "Good job !",
+                text: data,
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){ location.reload(); }, 2500);
+    
+            }
+      });
+  }
+
+  // delete confirmation javascript
+  function confirmation(e,id) {
+      swal({
+      title: "Are you sure?",
+      text: "Want to Delete this recode !",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+             delete_loan(id)
+          } 
+      });
+  }
+  ////////////////////  
    
   </script>
 

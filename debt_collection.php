@@ -73,7 +73,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control form-selectBox" id="custom_id" name = "id" required>
+                          <select class="form-control form-selectBox" id="custom_id" name="id" required>
                             <option value="default">--Select Customer--</option>
                             <?php
 
@@ -106,7 +106,7 @@ mysqli_select_db($con,DB_NAME);
                         ?>
                         <input type="hidden" id="nextId" name="nextId" value ='<?php echo $row_print['id']+1; ?>'>
                         <label>Loan Amount</label>
-                        <input type="text" class="form-control" id="loan_amt" name = "l_amt" disabled = "" id = "loan_amount" readonly required>
+                        <input type="text" class="form-control" id="loan_amt" name = "l_amt" disabled = "" id = "loan_amount" placeholder="LKR. 0.00" readonly required>
                       </div>
                     </div>
                   </div>
@@ -118,90 +118,98 @@ mysqli_select_db($con,DB_NAME);
                       </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <input type="hidden" class="form-control" id="type" name = "type" required disabled>
+                        <label>Brought Forward</label>
+                        <input type="text" class="form-control" id="brought_forward" name="brought_forward" placeholder="LKR. 0.00" required readonly="">
                       </div>
                     </div>
-                    <div class="col-md-2">
-                      <div class="form-group">
-                        <input type="hidden" class="form-control" id="method" name = "method" required disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-2">
-                      <div class="form-group">
-                        <input type="hidden" class="form-control" id="days" name = "day" required disabled>
-                      </div>
-                    </div>
+
                   </div>
                   <div class="row">
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <label>Amount</label>
-                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="amt" name = "amt" required disabled>
+                        <label>Today Paid</label>
+                        <input type="text" class="form-control checkAmt" placeholder="LKR 0.00" id="paid" name="paid" required disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pr-3">
+                      <div class="form-group">
+                        <label>Rental</label>
+                        <input type="text" class="form-control" placeholder="LKR 0.00" id="rental" name = "rental" required disabled>
+                      </div>
+                    </div>
+                  </div>
+                    <!-- hidden area open-->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="type" name = "type" required disabled placeholder="type">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="method" name = "method" required disabled placeholder="method">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="days" name = "day" required disabled placeholder="days">
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="hidden" class="form-control" placeholder="pre" id="pre_date" name = "pre_date" required>
+                        <input type="text" class="form-control" placeholder="pre" id="pre_date" name = "pre_date" required disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-3 pr-3">
+                      <div class="form-text">
+                        <input type="text" class="form-control" placeholder="now" id="now_date" name = "now_date" required disabled>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="hidden" class="form-control" placeholder="now" id="now_date" name = "now_date" required disabled>
+                        <input type="text" class="form-control" placeholder="sunday" id="sunday" name = "sunday" required disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-3 pr-3">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="poyaday" id="poyaday" name = "poyaday" required disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-3 pr-3">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="newdays" id="newdays" name = "newdays" required readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-3">
                       <div class="form-group">
-                        <input type="hidden" class="form-control" placeholder="sunday" id="sunday" name = "sunday" required disabled>
+                        <input type="text" class="form-control" placeholder="No" id="no_installements" name = "no_installements" required readonly>
                       </div>
                     </div>
-                    <div class="col-md-2 pr-3">
+                    <div class="col-md-4 pr-3">
                       <div class="form-group">
-                        <input type="hidden" class="form-control" placeholder="poyaday" id="poyaday" name = "poyaday" required disabled>
+                        <input type="text" class="form-control" placeholder="amount" id="amount" name = "amount" required readonly>
                       </div>
                     </div>
-                    <!-- <div class="col-md-3 pr-3">
-                      <div class="form-group">
-                        <input type="hidden" class="form-control" placeholder="index" id="poyadate" name = "poyadate" required >
-                      </div>
-                    </div> -->
-                    <div class="col-md-3 pr-3">
-                      <div class="form-group">
-                        <input type="hidden" class="form-control" placeholder="newdays" id="newdays" name = "newdays" required >
-                      </div>
-                    </div>
+                    <!-- hidden area close-->
                   </div>
 
                   <div class="row">
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <label>Installment amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" id="inst_amt" name = "i_amt" required readonly>
+                        <label>Total Paid</label>
+                        <input type="text" class="form-control" placeholder="LKR 0.00" id="total_paid" name="total_paid" required readonly>
                       </div>
                     </div>               
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <label>Interest amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" id="int_amount" name = "int_amt" required readonly>
+                        <label>Arreares / Addition(-)</label>
+                        <input type="text" class="form-control" placeholder="LKR 0.00" id="arreares" name="arreares" required readonly>
                       </div>
                     </div>
                   </div>
-                  
-                  <div class="row">
-                    <div class="col-md-6 pr-3">
-                      <div class="form-group">
-                        <label>Remaining Interest Amount</label>
-                        <input type="text" class="form-control" id="r_int" name = "r_int" readonly required>
-                      </div>
-                    </div>
-                    <div class="col-md-6 pr-3">
-                      <div class="form-group">
-                        <label>Remaining amount</label>
-                        <input type="text" class="form-control" id="remain_amt" name = "remain_amt" value="" readonly required>
-                      </div>
-                    </div>
-                  </div>                  
+                                
                   <div class="row">
                     <div class="update ml-auto mr-auto">
                       <input type="hidden" name ="submit" value="submit"/>
@@ -211,18 +219,13 @@ mysqli_select_db($con,DB_NAME);
                       <?php
                           if(isset($_POST['submit'])){
 
-                            $custom_id      = $_POST['id'];
-                            $li_id          = $_POST['nextId'];
-                            $start_date     = $_POST['pre_date'];
-                            $li_date        = $_POST['li_date'];
-                            $newdays        = $_POST['newdays'];
-                            $daily_int      = $_POST['daily_int'];
-                            $amt            = $_POST['amt'];
-                            $new_amt        = $_POST['new_amt'];
-                            $i_amt          = $_POST['i_amt'];
-                            $int_amt        = $_POST['int_amt'];
-                            $remain_int_amt = $_POST['r_int'];
-                            $remain_amt     = $_POST['remain_amt'];
+                            $custom_id       = $_POST['id'];
+                            $li_id           = $_POST['nextId'];
+                            $li_date         = $_POST['li_date'];
+                            $paid            = $_POST['paid'];
+                            $arreares        = $_POST['arreares'];
+                            $total_paid      = $_POST['total_paid'];
+                            $brought_forward = $_POST['brought_forward'];
 
                             $date = explode('-', $li_date);
 
@@ -246,7 +249,7 @@ mysqli_select_db($con,DB_NAME);
                                     $id = $rowSummary['id'];
                                 }
 
-                                $newDebtAMT = ($oldDebtAMT +$i_amt);
+                                $newDebtAMT = ($oldDebtAMT +$paid);
 
                                 $queryRow ="UPDATE summary SET debtAMT='$newDebtAMT' WHERE id='$id' ";
                                 $rowRow =mysqli_query($con,$queryRow);
@@ -262,7 +265,7 @@ mysqli_select_db($con,DB_NAME);
                                 }
                                 else
                                 {
-                                    mysqli_stmt_bind_param($stmt,"ssss",$year,$month,$i_amt,$createDate);
+                                    mysqli_stmt_bind_param($stmt,"ssss",$year,$month,$paid,$createDate);
                                     $result =  mysqli_stmt_execute($stmt);
                                 }
 
@@ -292,10 +295,10 @@ mysqli_select_db($con,DB_NAME);
                           		$loan_no = $row_l['loan_no'];
                           		$loan_amount = $row_l['amount'];
 
-                          $insert = "INSERT INTO loan_installement (id,start_date,li_date,duration,month,year,paid,installement_amt,interest_amt,remaining_int_amt,remaining_amt,loan_no) VALUES ($li_id,'$start_date','$li_date',$newdays,$debt_year,$debt_month,$amt,$i_amt,$int_amt,$remain_int_amt,$remain_amt,$loan_no)";
+                          $insert = "INSERT INTO loan_installement (id,li_date,month,year,paid,arrears, total_paid,brought_forward,loan_no) VALUES ($li_id,'$li_date',$debt_month,$debt_year,$paid,$arreares,$total_paid,$brought_forward,$loan_no)";
                           mysqli_query($con,$insert);
 
-                          if($remain_amt <= 0){
+                          if($brought_forward <= 0){
                             $update_status = mysqli_query($con,"UPDATE loan SET l_status =0 WHERE loan_no=$loan_no");
                           }
 
@@ -314,16 +317,14 @@ mysqli_select_db($con,DB_NAME);
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                   	<thead class="text-primary">
-                  	  <th>                    ID 				        </th>
-                      <th>                    Installement Date </th>
-                      <th class="text-right"> Installement amt  </th>
-                      <th class="text-right"> Interest amt 		  </th>
-                      <th class="text-right"> Paid amt          </th>
-                      <th class="text-right"> Remaining interest</th>
-                      <th class="text-right"> Remaining amt     </th>
-                      <th class="text-right"> Loan no 			    </th>
-                      <th class="text-center">Delete            </th>
-                      <th class="text-center">Print 			      </th>
+                  	  <th>                    ID 				       </th>
+                      <th>                    Date             </th>
+                      <th class="text-right"> Paid amt        </th>
+                      <th class="text-right"> Arreares        </th>
+                      <th class="text-right"> Total paid      </th>
+                      <th class="text-right"> Brought Forward	</th>
+                      <th class="text-center">Delete          </th>
+                      <th class="text-center">Print 			    </th>
                     </thead>
                     <tbody>
                       <?php
@@ -339,11 +340,11 @@ mysqli_select_db($con,DB_NAME);
                             <tr>
                             <td>                    <?php echo $row['id']  ?>              </td>
                             <td>                    <?php echo $row['li_date']  ?>         </td>
-                            <td class="text-right"> <?php echo $row['installement_amt']?>  </td>
-                            <td class="text-right"> <?php echo $row['interest_amt'] ?>     </td>
                             <td class="text-right"> <?php echo $row['paid']?>              </td>
-                            <td class="text-right"> <?php echo $row['remaining_int_amt']?> </td>
-                            <td class="text-right"> <?php echo $row['remaining_amt'] ?>    </td>
+                            <td class="text-right"> <?php echo $row['arrears'] ?>          </td>
+                            <td class="text-right"> <?php echo $row['paid']?>              </td>
+                            <td class="text-right"> <?php echo $row['total_paid']?>        </td>
+                            <td class="text-right"> <?php echo $row[' brought_forward'] ?> </td>
                             <td class="text-right"> <?php echo $row['loan_no']  ?>         </td>
                            
                           	<td class="text-center">  
@@ -422,10 +423,16 @@ mysqli_select_db($con,DB_NAME);
         success: function (response) {
 
           var obj = JSON.parse(response);
+
           $('#type').val(obj.l_type);
           $('#method').val(obj.l_method);
-          $('#remain_amt').val(obj.remain_amt);
           $('#loan_amt').val(obj.loan_amt);
+          $('#brought_forward').val(obj.brought_forward.toFixed(2));
+          $('#rental').val(obj.rental);
+          $('#total_paid').val(obj.total_paid.toFixed(2));
+          $('#arreares').val(obj.arrears.toFixed(2));
+          $('#no_installements').val(obj.no_installements);
+
           var pre_date  =  obj.pre_date
           var now_date  =  $('#li_date').val();
 
@@ -472,7 +479,7 @@ mysqli_select_db($con,DB_NAME);
 
 
           $('#days').val(diffDays);
-          $('#amt').prop('disabled', false);
+          $('#paid').prop('disabled', false);
         }
 
       });
@@ -495,14 +502,16 @@ $('.checkAmt').on('keyup',function(){
 
 function checkAmt(){
 
-  var amount = $('#amt').val();
-  var days   = $('#days').val();
-  var installement_amt;
-  var interest_amt;
-  var remain_int;
-  var remain_amt;
+  var paid    = $('#paid').val();
+  var days    = $('#days').val();
+  var no      = $('#no_installements').val();
+  var amount;
+
+  var new_forward;
+  var new_arreares;
+  var new_total;
+
   var poyadays;
-  // var day_index;
   var new_days;
   var id =  $('#custom_id').val();
 
@@ -531,13 +540,9 @@ function checkAmt(){
     method:"POST",
     data:{"start_day":start_day,"finish_day":finish_day,"method":method},
     success: function (response) {
-      //var obj = JSON.parse(response);
-        //poyadays =  obj.poyadays;
         poyadays = Number(response);
-        // day_index  =  obj.day_index;
 
       $('#poyaday').val(poyadays);
-      // $('#poyadate').val(day_index);
 
       /////////calculate days for each type and methods///////////
 
@@ -558,11 +563,7 @@ function checkAmt(){
          new_days = Number(days)-Number(poyadays);
       }
       else if (type=='daily' && method=='sunday off'){
-          // if(day_index==0){
-          //  new_days = Number(days)-Number(sun);
-          // }else{
            new_days = Number(days)-(Number(sun)+Number(poyadays));
-          // }
       }
       $('#newdays').val(new_days);
     }
@@ -578,29 +579,27 @@ function checkAmt(){
     success: function (response) {
 
       var obj = JSON.parse(response);
-     // $('#remain_amt').val(obj.remain_amt);
-      var remain_amt      =  obj.remain_amt
-      var remain_int      =  obj.remain_int
-      var loan            =  obj.loan_amt
-      var daily_interest  =  obj.interest
-      
-      interest_amt = (Number(daily_interest) * Number(new_days));
-      
-      if(amount>=interest_amt){
-        installement_amt = Number(amount) - Number(interest_amt);
-        remain_int       = Number(0.00);
-        remain_amt       = Number(remain_amt) - Number(installement_amt);  
+
+      var old_forward  =  obj.brought_forward
+      var old_total    =  obj.total_paid
+      var old_arreares =  obj.arrears
+      var rental       =  obj.rental
+
+      amount = Number(rental)*Number(new_days);
+
+      new_forward  = Number(old_forward)-Number(paid);
+      new_total    = Number(old_total)+Number(paid);
+
+      if(paid==amount){
+        new_arreares = 0.00;
       }else{
-        installement_amt = Number(0.00);
-        remain_int       = Number(interest_amt) - Number(amount);
-        remain_amt       = Number(remain_amt) + Number(remain_int);  
+        new_arreares = Number(old_arreares)+(Number(amount)-Number(paid));
       }
-        
   
-       $('#int_amount').val(interest_amt.toFixed(2));
-       $('#inst_amt').val(installement_amt.toFixed(2));
-       $('#r_int').val(remain_int.toFixed(2));
-       $('#remain_amt').val(remain_amt.toFixed(2));
+       $('#amount').val(amount.toFixed(2));
+       $('#brought_forward').val(new_forward.toFixed(2));
+       $('#total_paid').val(new_total.toFixed(2));
+       $('#arreares').val(new_arreares.toFixed(2));
     }
   });
 }

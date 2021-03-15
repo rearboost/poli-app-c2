@@ -50,21 +50,21 @@ mysqli_select_db($con,DB_NAME);
        <div class="print_form">
         <form >
           <div>
-             <span style="padding-left: 20px; font-size: 18px; color: black;"><b>D.S Credit (Pvt) Ltd</b></span><br>
-             <span style="padding-left: 30px; font-size: revert; color: black;">(Reg No. PV00215533)</span><br>
-             <span style="padding-left: 30px; font-size: small; color: black;"><b>Hotline : 071 7055 076</b></span>
+            <img src="images/logo.png" style="padding-left: 30px;"><br>
+             <span style="padding-left: 20px; font-size: 16px; color: black;"><b>National Micro Credit on</b></span><br>
+             <span style="padding-left: 28px; font-size: 16px; color: black;"><b> Investment (Pvt) Ltd.</b></span><br>
+             <span style="padding-left: 32px; font-size: revert; color: black;">(Reg No. PV00214503)</span><br><br>
+             <span style="font-size: small; color: black;"><b>Installement Receipt</b></span><br>
+             <span style="font-size: small; color: black;">Tel : 076 0364 350 / 070 3625 796</span><br>
+             <span style="font-size: small; color: black;">Bill Date : 
+             <?php 
+                $date = new DateTime(null, new DateTimeZone('Etc/GMT+8'));
+                        echo $date->format('Y-m-d h:i:sA'); ?>       
+              </span><br>
+              <span style="font-size: small; color: black;">Route : Mahiyanganaya - Hadungamuwa</span><br>
+              <span style="font-size: small; color: black;">Cash coll : Mr.Wijethunga</span><br>
           </div>
           <span style="color: black;">--------------------------------------------------</span>
-
-            <div class="row"> 
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label style="color: black;"><b>Bill Date</b></label><span style="color: black;"> :  <?php 
-                        $date = new DateTime(null, new DateTimeZone('Etc/GMT+8'));
-                        echo $date->format('Y-m-d h:i:sA'); ?></span>
-                </div>
-              </div> 
-            </div> 
 
             <div class="row"> 
               <div class="col-md-6 pr-1">
