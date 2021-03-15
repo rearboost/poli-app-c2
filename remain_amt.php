@@ -28,14 +28,14 @@
 	$total_paid  	  = $data1['total_paid'];
 	$brought_forward  = $data1['brought_forward'];
 
-	$first_forward_bal1 = $rental * $no_installements;
-	$first_forward_bal = number_format($first_forward_bal1,2,".",",");
+	$first_forward_bal = $rental * $no_installements;
+	//$first_forward_bal = number_format($first_forward_bal1,2,".",",");
 	
 	if(empty($brought_forward))
 	{
 		$brought_forward = $first_forward_bal;	
-		$total_paid 	 = 0.00;	
-		$arrears 	 	 = 0.00;	
+		$total_paid 	 = 0;	
+		$arrears 	 	 = 0;	
 		$pre_date 		 = $l_date;	
 	}
 	else

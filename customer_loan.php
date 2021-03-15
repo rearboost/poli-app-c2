@@ -79,7 +79,7 @@ mysqli_select_db($con,DB_NAME);
                             <option value="default">--Select Customer--</option>
                             <?php
                           
-                            //// need to fetch customer who not a debtor [only drop customers who have l_status - 1]
+                            /// need to fetch customer who not a debtor [only drop customers who have l_status - 1]
                                 $custom = "SELECT C.cust_id AS cust_id, C.name AS name
                                           FROM customer C 
                                           ";
@@ -556,7 +556,7 @@ mysqli_select_db($con,DB_NAME);
     var start_date = $('#l_date').val();
 
     const date = new Date(start_date);
-    date.setDate(date.getDate() + Number(no));  
+    date.setDate(date.getDate() + Number(no)+1);  
 
     const zeroPad = (num, places) => String(num).padStart(places, '0') 
   
