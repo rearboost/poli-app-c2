@@ -148,13 +148,13 @@ mysqli_select_db($con,DB_NAME);
 
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="duration" name = "duration" placeholder="Duration" required readonly>
+                        <input type="text" class="form-control" id="duration" name = "duration" placeholder="Duration" required readonly hidden="">
                       </div>
                     </div>
 
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="end_date" name = "end_date" placeholder="End date" required readonly>
+                        <input type="text" class="form-control" id="end_date" name = "end_date" placeholder="End date" required readonly hidden="">
                       </div>
                     </div>
                   </div>
@@ -264,7 +264,8 @@ mysqli_select_db($con,DB_NAME);
 
                               $end_date  = $dateEnd;
                             }elseif($loan_type =="weekly" && $loan_method =="sunday off"){
-                              $end_date = date('Y-m-d', strtotime($dateEnd. ' + '.$sundays.' days'));
+                              $totaldays = $sunAndpoyaday+$sundays;
+                              $end_date = date('Y-m-d', strtotime($dateEnd. ' + '.$totaldays.' days'));
                             }
                             //////////////////////////
 
@@ -407,9 +408,8 @@ mysqli_select_db($con,DB_NAME);
                       <td>                   <?php echo $row['end_date']?>   </td>
                       <td class="text-right"><?php echo number_format($row['amount'],2)?>  </td>
                       <td class="text-right"><?php echo $row['interest']?> </td>
-                      <!-- <td class="text-right"><?php // echo number_format($remain_amount,2);?></td> -->
                       <td class="text-right"><?php echo number_format($row['rental'],2)?> </td>
-                      <td class="text-right"><?php echo $row['duration']?> </td>
+                      <td class="text-right"><?php echo $row['no_installements']?> </td>
                       <td class="text-center"><?php echo $view_satus; ?> </td>
                       <td class="text-center"><?php echo $row['l_type'] ?> </td>
                       <td class="text-center"><?php echo $row['l_method'] ?> </td>

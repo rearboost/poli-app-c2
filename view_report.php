@@ -47,7 +47,7 @@
       <tr>
         <td>                    <?php echo $row['loan_no'] ?>   </td>
         <td class="text-right"> <?php echo $row['l_date'] ?>    </td>
-        <td class="text-right"> <?php echo $row['amount'] ?>    </td>
+        <td class="text-right"> <?php echo number_format($row['amount'],2) ?>    </td>
         <td class="text-right">    
          <a href="#" onclick="View('<?php echo $row['loan_no']; ?>')" name="view">History </a>
         </td>

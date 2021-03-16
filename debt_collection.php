@@ -144,52 +144,52 @@ mysqli_select_db($con,DB_NAME);
                   <div class="row">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="type" name = "type" required disabled placeholder="type">
+                        <input type="text" class="form-control" id="type" name = "type" required disabled placeholder="type" hidden>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="method" name = "method" required disabled placeholder="method">
+                        <input type="text" class="form-control" id="method" name = "method" required disabled placeholder="method" hidden>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="days" name = "day" required disabled placeholder="days">
+                        <input type="text" class="form-control" id="days" name = "day" required disabled placeholder="days" hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="pre" id="pre_date" name = "pre_date" required disabled>
+                        <input type="text" class="form-control" placeholder="pre" id="pre_date" name = "pre_date" required disabled hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-text">
-                        <input type="text" class="form-control" placeholder="now" id="now_date" name = "now_date" required disabled>
+                        <input type="text" class="form-control" placeholder="now" id="now_date" name = "now_date" required disabled hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="sunday" id="sunday" name = "sunday" required disabled>
+                        <input type="text" class="form-control" placeholder="sunday" id="sunday" name = "sunday" required disabled hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="poyaday" id="poyaday" name = "poyaday" required disabled>
+                        <input type="text" class="form-control" placeholder="poyaday" id="poyaday" name = "poyaday" required disabled hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="newdays" id="newdays" name = "newdays" required readonly>
+                        <input type="text" class="form-control" placeholder="newdays" id="newdays" name = "newdays" required readonly hidden>
                       </div>
                     </div>
                     <div class="col-md-2 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="No" id="no_installements" name = "no_installements" required readonly>
+                        <input type="text" class="form-control" placeholder="No" id="no_installements" name = "no_installements" required readonly hidden>
                       </div>
                     </div>
                     <div class="col-md-4 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="amount" id="amount" name = "amount" required readonly>
+                        <input type="text" class="form-control" placeholder="amount" id="amount" name = "amount" required readonly hidden>
                       </div>
                     </div>
                     <!-- hidden area close-->
@@ -323,6 +323,7 @@ mysqli_select_db($con,DB_NAME);
                       <th class="text-right"> Arreares        </th>
                       <th class="text-right"> Total paid      </th>
                       <th class="text-right"> Brought Forward	</th>
+                      <th class="text-right"> loan no </th>
                       <th class="text-center">Delete          </th>
                       <th class="text-center">Print 			    </th>
                     </thead>
@@ -337,14 +338,27 @@ mysqli_select_db($con,DB_NAME);
                         while($row = mysqli_fetch_assoc($result)) {
                       ?>   
                         <tr>
-                        <td>                    <?php echo $row['id']  ?>             </td>
-                        <td>                    <?php echo $row['li_date']  ?>        </td>
-                        <td class="text-right"> <?php echo $row['paid']?>             </td>
-                        <td class="text-right"> <?php echo $row['arrears'] ?>         </td>
-                        <td class="text-right"> <?php echo $row['paid']?>             </td>
-                        <td class="text-right"> <?php echo $row['total_paid']?>       </td>
-                        <td class="text-right"> <?php echo $row['brought_forward'] ?> </td>
-                        <td class="text-right"> <?php echo $row['loan_no']  ?>        </td>
+                        <td>                    
+                          <?php echo $row['id']  ?>             
+                        </td>
+                        <td>                    
+                          <?php echo $row['li_date']  ?>        
+                        </td>
+                        <td class="text-right"> 
+                          <?php echo number_format($row['paid'],2)?>             
+                        </td>
+                        <td class="text-right"> 
+                          <?php echo number_format($row['arrears'],2) ?>         
+                        </td>
+                        <td class="text-right"> 
+                          <?php echo number_format($row['total_paid'],2)?>       
+                        </td>
+                        <td class="text-right"> 
+                          <?php echo number_format($row['brought_forward'],2) ?> 
+                        </td>
+                        <td class="text-right"> 
+                          <?php echo $row['loan_no']  ?>        
+                        </td>
                        
                       	<td class="text-center">  
                         	<a href="#" onclick="confirmation('event','<?php echo $row['id']; ?>')" name="delete">

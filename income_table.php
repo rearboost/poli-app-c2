@@ -46,7 +46,7 @@
     <tr>
      <td style="width:10%"> </td>
      <td>'.$row["column1"].'</td>
-     <td class="text-right">'.$row["tot_amount"].'</td>
+     <td class="text-right">'.number_format($row["tot_amount"],2).'</td>
      <td style="width:10%"> </td>';
     echo '</tr>';
 

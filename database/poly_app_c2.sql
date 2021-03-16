@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2021 at 05:10 PM
+-- Generation Time: Mar 16, 2021 at 03:57 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -92,7 +92,10 @@ CREATE TABLE `loan` (
 --
 
 INSERT INTO `loan` (`loan_no`, `l_date`, `amount`, `interest`, `no_installements`, `rental`, `duration`, `end_date`, `cust_id`, `l_status`, `l_type`, `l_method`) VALUES
-(1, '2021-02-03', 30000.00, 10, 60, 600.00, 59, 'Sat Apr 03 2021 16:00:00 GMT-0700 (Pacific Daylight Time)', 'W0001', 1, 'daily', 'normal');
+(1, '2021-02-01', 30000.00, 10, 60, 600.00, 59, '2021-04-04', 'D0001', 1, 'daily', 'normal'),
+(2, '2021-02-03', 50000.00, 10, 60, 1000.00, 59, '2021-04-15', 'D0002', 1, 'daily', 'sunday off'),
+(3, '2021-03-05', 30000.00, 10, 60, 600.00, 59, '2021-05-04', 'M0001', 1, 'weekly', 'normal'),
+(5, '2021-03-03', 30000.00, 10, 60, 600.00, 59, '2021-05-12', 'M0002', 1, 'weekly', 'sunday off');
 
 -- --------------------------------------------------------
 
@@ -111,6 +114,13 @@ CREATE TABLE `loan_installement` (
   `brought_forward` decimal(10,2) NOT NULL DEFAULT '0.00',
   `loan_no` int(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `loan_installement`
+--
+
+INSERT INTO `loan_installement` (`id`, `li_date`, `month`, `year`, `paid`, `arrears`, `total_paid`, `brought_forward`, `loan_no`) VALUES
+(1, '2021-02-03', '02', '2021', 600.00, 600.00, 600.00, '35400.00', 1);
 
 -- --------------------------------------------------------
 
@@ -162,18 +172,18 @@ CREATE TABLE `summary` (
 --
 
 INSERT INTO `summary` (`id`, `year`, `month`, `loanAMT`, `debtAMT`, `createDate`) VALUES
-(1, '2021', '03', '30000.00', '0.00', '2021-03-15'),
-(2, '2021', '01', '0.00', '0.00', '2021-03-15'),
-(3, '2021', '02', '0.00', '0.00', '2021-03-15'),
-(4, '2021', '04', '0.00', '0.00', '2021-03-15'),
-(5, '2021', '05', '0.00', '0.00', '2021-03-15'),
-(6, '2021', '06', '0.00', '0.00', '2021-03-15'),
-(7, '2021', '07', '0.00', '0.00', '2021-03-15'),
-(8, '2021', '08', '0.00', '0.00', '2021-03-15'),
-(9, '2021', '09', '0.00', '0.00', '2021-03-15'),
-(10, '2021', '10', '0.00', '0.00', '2021-03-15'),
-(11, '2021', '11', '0.00', '0.00', '2021-03-15'),
-(12, '2021', '12', '0.00', '0.00', '2021-03-15');
+(1, '2021', '03', '170000.00', '600.00', '2021-03-16'),
+(2, '2021', '01', '0.00', '0.00', '2021-03-16'),
+(3, '2021', '02', '0.00', '0.00', '2021-03-16'),
+(4, '2021', '04', '0.00', '0.00', '2021-03-16'),
+(5, '2021', '05', '0.00', '0.00', '2021-03-16'),
+(6, '2021', '06', '0.00', '0.00', '2021-03-16'),
+(7, '2021', '07', '0.00', '0.00', '2021-03-16'),
+(8, '2021', '08', '0.00', '0.00', '2021-03-16'),
+(9, '2021', '09', '0.00', '0.00', '2021-03-16'),
+(10, '2021', '10', '0.00', '0.00', '2021-03-16'),
+(11, '2021', '11', '0.00', '0.00', '2021-03-16'),
+(12, '2021', '12', '0.00', '0.00', '2021-03-16');
 
 -- --------------------------------------------------------
 
@@ -254,12 +264,12 @@ ALTER TABLE `cheque`
 -- AUTO_INCREMENT for table `loan`
 --
 ALTER TABLE `loan`
-  MODIFY `loan_no` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `loan_no` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `loan_installement`
 --
 ALTER TABLE `loan_installement`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `special_days`
 --

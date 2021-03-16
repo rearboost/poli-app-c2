@@ -40,9 +40,9 @@
         ?>
               <tr>
                 <td>                    <?php echo $row1['li_date'] ?>       </td>
-                <td class="text-right"> <?php echo $row1['paid'] ?>  </td>
-                <td class="text-right"> <?php echo $row1['total_paid'] ?>      </td>
-                <td class="text-right"> <?php echo $row1['brought_forward'] ?>     </td>
+                <td class="text-right"> <?php echo number_format($row1['paid'],2) ?>  </td>
+                <td class="text-right"> <?php echo number_format($row1['total_paid'],2) ?>      </td>
+                <td class="text-right"> <?php echo number_format($row1['brought_forward'],2) ?>     </td>
               </tr>
             </tbody>
         <?php
