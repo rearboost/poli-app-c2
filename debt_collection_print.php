@@ -91,7 +91,7 @@ mysqli_select_db($con,DB_NAME);
           </span><br>
 
           <span style="font-size: small; color: black;">Duration : 
-          <?php echo $data['duration'] ?>
+          <?php echo $data['no_installements'] ?>
           </span><br>
 
           <span style="font-size: small; color: black;">Start Date : 
