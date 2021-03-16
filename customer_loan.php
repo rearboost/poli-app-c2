@@ -130,31 +130,27 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
                         <label>No: of Installements</label>
-                        <select class="form-control" id="no_installements" name = "no_installements" required>
-                          <option selected="" disabled="">-- select --</option>
-                          <option value="60">60</option>
-                          <option value="90">90</option>
-                          <option value="100">100</option>
-                        </select>
+                        <input type="text" class="form-control" id="no_installements" name="no_installements" required placeholder="No. of Installements">
                       </div>
                     </div>
                     
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
                         <label>Rental</label>
-                        <input type="text" class="form-control" id="rental" name = "rental" required readonly>
+                        <input type="text" class="form-control" id="rental" name="rental" required placeholder="LKR.0.00">
                       </div>
                     </div>
 
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="duration" name = "duration" placeholder="Duration" required readonly hidden="">
+                        <label>Duration</label>
+                        <input type="text" class="form-control" id="duration" name = "duration" placeholder="Duration" required>
                       </div>
                     </div>
 
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="end_date" name = "end_date" placeholder="End date" required readonly hidden="">
+                        <input type="text" class="form-control" id="end_date" name = "end_date" placeholder="End date" required readonly >
                       </div>
                     </div>
                   </div>
@@ -174,7 +170,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-6 pr-3">
                       <div class="form-group" style="border:2px solid; border-radius: 10px; padding: 10px; border-color: #ccccb3;">
                         <label>Payment Method</label> <br>
-                        <label><input type="radio" id="m1" name="loan_method" value="normal" checked=""> Noramal
+                        <label><input type="radio" id="m1" name="loan_method" value="normal" checked=""> Normal
                         </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <label>
                           <input type="radio" id="m2" name="loan_method" value="sunday off"> Sunday Off
@@ -323,7 +319,7 @@ mysqli_select_db($con,DB_NAME);
                                 }
                             }
 
-                            $insert2 = "INSERT INTO loan (l_date,amount,interest,no_installements,rental,duration,end_date,cust_id,l_status,l_type,l_method) 
+                            $insert2 = "INSERT INTO loan (l_date,amount,interest,no_installements,rental, duration,end_date,cust_id,l_status,l_type,l_method) 
                               VALUES ('$l_date',$l_amt,$interest,$no_installements,$rental,$duration,'$end_date','$cust_id',1,'$loan_type','$loan_method')";                         
                             mysqli_query($con,$insert2);
 
@@ -409,7 +405,7 @@ mysqli_select_db($con,DB_NAME);
                       <td class="text-right"><?php echo number_format($row['amount'],2)?>  </td>
                       <td class="text-right"><?php echo $row['interest']?> </td>
                       <td class="text-right"><?php echo number_format($row['rental'],2)?> </td>
-                      <td class="text-right"><?php echo $row['no_installements']?> </td>
+                      <td class="text-right"><?php echo $row['duration']?> </td>
                       <td class="text-center"><?php echo $view_satus; ?> </td>
                       <td class="text-center"><?php echo $row['l_type'] ?> </td>
                       <td class="text-center"><?php echo $row['l_method'] ?> </td>
@@ -530,18 +526,20 @@ mysqli_select_db($con,DB_NAME);
   } 
 
   /////////// no_installements onchange //////////////////// 
-  $('#no_installements').on('change',function(){
+  $('#no_installements').on('keyup',function(){
 
     /////////////////calculate rental///////////////
 
     var amount = $('#amount').val();
     var int  = $('#int').val();
     var no  = $('#no_installements').val();
+    var duration;
     var interest;
     var rental;
 
     interest = (Number(amount)*(Number(int)/100)*no)/30;
     rental = (Number(amount)+Number(interest))/no;
+    duration = Number(no);
     
     $('#rental').val(rental.toFixed(2));
 
@@ -549,7 +547,7 @@ mysqli_select_db($con,DB_NAME);
     var start_date = $('#l_date').val();
 
     const date = new Date(start_date);
-    date.setDate(date.getDate() + Number(no)+1);  
+    date.setDate(date.getDate() + Number(duration)+1);  
 
     const zeroPad = (num, places) => String(num).padStart(places, '0') 
   
@@ -561,19 +559,82 @@ mysqli_select_db($con,DB_NAME);
 
     $('#end_date').val(end_date);
 
-    if(no==60)
-    {
-      duration = 59;
-    }
-    else if(no==90)
-    {
-      duration = 89;
-    }else
-    {
-      duration = 99;
-    }
+    // if(no==60)
+    // {
+    //   duration = 59;
+    // }
+    // else if(no==90)
+    // {
+    //   duration = 89;
+    // }else
+    // {
+    //   duration = 99;
+    // }
+     $('#duration').val(duration);
+
+  });
+
+  $('#rental').on('keyup',function(){
+
+    var amount = $('#amount').val();
+    var int  = $('#int').val();
+    var no  = $('#no_installements').val();
+    var rental  = $('#rental').val();
+    var interest;
+    var duration;
+
+    interest = (Number(amount)*(Number(int)/100)*no)/30;
+    duration = (Number(amount)+Number(interest))/rental;
+    
     $('#duration').val(duration);
 
+    //////////////////create end date //////////////////
+    var start_date = $('#l_date').val();
+
+    const date = new Date(start_date);
+    date.setDate(date.getDate() + Number(duration)+1);  
+
+    const zeroPad = (num, places) => String(num).padStart(places, '0') 
+  
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1;
+    var y = date.getFullYear();
+
+    var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
+
+    $('#end_date').val(end_date);
+
+  });
+
+  $('#duration').on('keyup',function(){
+
+    var amount = $('#amount').val();
+    var int  = $('#int').val();
+    var no  = $('#no_installements').val();
+    var duration  = $('#duration').val();
+    var interest;
+    var rental;
+
+    interest = (Number(amount)*(Number(int)/100)*no)/30;
+    rental = (Number(amount)+Number(interest))/duration;
+    
+    $('#rental').val(rental);
+
+    //////////////////create end date //////////////////
+    var start_date = $('#l_date').val();
+
+    const date = new Date(start_date);
+    date.setDate(date.getDate() + Number(duration)+1);  
+
+    const zeroPad = (num, places) => String(num).padStart(places, '0') 
+  
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1;
+    var y = date.getFullYear();
+
+    var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
+
+    $('#end_date').val(end_date);
   });
 
   ///////////////////////////////////////////////////

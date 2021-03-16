@@ -144,52 +144,52 @@ mysqli_select_db($con,DB_NAME);
                   <div class="row">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="type" name = "type" required disabled placeholder="type" hidden>
+                        <input type="text" class="form-control" id="type" name = "type" required disabled placeholder="type">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="method" name = "method" required disabled placeholder="method" hidden>
+                        <input type="text" class="form-control" id="method" name = "method" required disabled placeholder="method">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="days" name = "day" required disabled placeholder="days" hidden>
+                        <input type="text" class="form-control" id="days" name = "day" required disabled placeholder="days">
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="pre" id="pre_date" name = "pre_date" required disabled hidden>
+                        <input type="text" class="form-control" placeholder="pre" id="pre_date" name = "pre_date" required disabled>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-text">
-                        <input type="text" class="form-control" placeholder="now" id="now_date" name = "now_date" required disabled hidden>
+                        <input type="text" class="form-control" placeholder="now" id="now_date" name = "now_date" required disabled>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="sunday" id="sunday" name = "sunday" required disabled hidden>
+                        <input type="text" class="form-control" placeholder="sunday" id="sunday" name = "sunday" required disabled>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="poyaday" id="poyaday" name = "poyaday" required disabled hidden>
+                        <input type="text" class="form-control" placeholder="poyaday" id="poyaday" name = "poyaday" required disabled>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="newdays" id="newdays" name = "newdays" required readonly hidden>
+                        <input type="text" class="form-control" placeholder="newdays" id="newdays" name = "newdays" required readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="No" id="no_installements" name = "no_installements" required readonly hidden>
+                        <input type="text" class="form-control" placeholder="No" id="duration" name = "duration" required readonly >
                       </div>
                     </div>
                     <div class="col-md-4 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="amount" id="amount" name = "amount" required readonly hidden>
+                        <input type="text" class="form-control" placeholder="amount" id="amount" name = "amount" required readonly>
                       </div>
                     </div>
                     <!-- hidden area close-->
@@ -444,7 +444,7 @@ mysqli_select_db($con,DB_NAME);
           $('#rental').val(obj.rental);
           $('#total_paid').val(obj.total_paid);
           $('#arreares').val(obj.arrears);
-          $('#no_installements').val(obj.no_installements);
+          $('#duration').val(obj.duration);
 
           var pre_date  =  obj.pre_date
           var now_date  =  $('#li_date').val();
@@ -517,7 +517,7 @@ function checkAmt(){
 
   var paid    = $('#paid').val();
   var days    = $('#days').val();
-  var no      = $('#no_installements').val();
+  var no      = $('#duration').val();
   var amount;
 
   var new_forward;

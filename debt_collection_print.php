@@ -51,9 +51,9 @@ mysqli_select_db($con,DB_NAME);
         <form >
           <div>
             <br>
-            <img src="images/logo.png" style="padding-left: 6%;"><br>
-             <span style="padding-left: 20px; font-size: 14px; color: black;"><b>National Micro Credit on</b></span><br>
-             <span style="padding-left: 28px; font-size: 14px; color: black;"><b> Investment (Pvt) Ltd.</b></span><br>
+            <img src="images/logo.png" style="padding-left: 7%;"><br>
+             <span style="padding-left: 20px; font-size: 14px; color: black;"><b>NATIAL MICRO CREDIT AN</b></span><br>
+             <span style="padding-left: 28px; font-size: 14px; color: black;"><b> INVESTMENT (PVT) LTD.</b></span><br>
              <span style="padding-left: 32px; font-size: revert; color: black;">(Reg No. PV00214503)</span><br><br>
              <span style="font-size: small; color: black;"><b>Installement Receipt</b></span><br>
              <span style="font-size: small; color: black;">Tel : 076 0364 350 / 070 3625 796</span><br>

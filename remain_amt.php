@@ -7,14 +7,14 @@
 
 	$customer_id = $_POST['id'];
 
-	$get_loan = mysqli_query($con,"SELECT loan_no,l_date,amount,no_installements,	rental,l_type,l_method FROM loan l WHERE cust_id = '$customer_id' AND l_status = 1");
+	$get_loan = mysqli_query($con,"SELECT loan_no,l_date,amount,duration,	rental,l_type,l_method FROM loan l WHERE cust_id = '$customer_id' AND l_status = 1");
 
 	$data = mysqli_fetch_array($get_loan); 
 
 	$loan_no 			= $data['loan_no'];
 	$l_date 			= $data['l_date'];
 	$loan_amt 			= $data['amount'];
-	$no_installements 	= $data['no_installements'];
+	$duration 	= $data['duration'];
 	$rental 			= $data['rental'];
 	$l_type 			= $data['l_type'];
 	$l_method 			= $data['l_method'];
@@ -28,7 +28,7 @@
 	$total_paid  	  = $data1['total_paid'];
 	$brought_forward  = $data1['brought_forward'];
 
-	$first_forward_bal = $rental * $no_installements;
+	$first_forward_bal = $rental * $duration;
 	//$first_forward_bal = number_format($first_forward_bal1,2,".",",");
 	
 	if(empty($brought_forward))
@@ -47,7 +47,7 @@
 	}
 
 	$myObj->loan_amt 		 = $loan_amt;
-	$myObj->no_installements = $no_installements;
+	$myObj->duration 		 = $duration;
 	$myObj->rental 			 = $rental;
 	$myObj->l_type 			 = $l_type;
 	$myObj->l_method 		 = $l_method;
