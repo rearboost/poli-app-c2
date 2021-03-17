@@ -150,7 +150,7 @@ mysqli_select_db($con,DB_NAME);
 
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="end_date" name = "end_date" placeholder="End date" required readonly >
+                        <input type="text" class="form-control" id="end_date" name = "end_date" placeholder="End date" required readonly hidden>
                       </div>
                     </div>
                   </div>
