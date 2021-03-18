@@ -437,7 +437,9 @@ mysqli_select_db($con,DB_NAME);
 
           var obj = JSON.parse(response);
 
-          $('#type').val(obj.l_type);
+          var l_type = obj.l_type
+
+          $('#type').val(l_type);
           $('#method').val(obj.l_method);
           $('#loan_amt').val(obj.loan_amt);
           $('#brought_forward').val(obj.brought_forward);
@@ -454,9 +456,22 @@ mysqli_select_db($con,DB_NAME);
           const secondDate = new Date(now_date);
 
           const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
-
-          $('#days').val(diffDays);
-
+          
+          
+          if(l_type=='weekly'){
+              var a = diffDays;
+              var b = 7;
+              var c = a % b;
+              var x;
+              if(c>=1){
+                x = (a - c) / 7;
+              }else{
+                x = a / b;
+              }
+              $('#days').val(x);
+          }else{
+              $('#days').val(diffDays);
+          }
           $('#li_date').prop('disabled', false);
         }
       });
@@ -491,7 +506,36 @@ mysqli_select_db($con,DB_NAME);
           const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
 
 
-          $('#days').val(diffDays);
+          if(type=='weekly' && method=='normal'){
+              var a = diffDays;
+              var b = 7;
+              var c = a % b;
+              var x;
+                if(c>=1){
+                  x = (a - c) / 7;
+                }else{
+                  x = a / b;
+                }
+              $('#days').val(x);
+          // }else if(){
+          //     if(type=='weekly' && method=='sunday off'){
+          //     var a = diffDays;
+          //     var b = 7;
+          //     var c = a % b;
+          //     var x;
+          //       if(c>=1){
+          //         x = (a - c) / 7;
+          //       }else{
+          //         x = a / b;
+          //       }
+          //     $('#days').val(x);
+          // }
+          
+          
+          }else{
+              $('#days').val(diffDays);
+          }
+
           $('#paid').prop('disabled', false);
         }
 
@@ -565,7 +609,17 @@ function checkAmt(){
      
       if(type=='weekly' && method=='sunday off')
       {
-         new_days = Number(days)-Number(sun);
+         //new_days = Number(days)-Number(sun);
+              var a = Number(days)-Number(sun);
+              var b = 7;
+              var c = a % b;
+              var x;
+                if(c>=1){
+                  x = (a - c) / 7;
+                }else{
+                  x = a / b;
+                }
+         new_days = Number(x);
       }
       else if(type=='weekly' && method=='normal')
       {

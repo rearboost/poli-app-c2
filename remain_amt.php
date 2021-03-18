@@ -14,7 +14,7 @@
 	$loan_no 			= $data['loan_no'];
 	$l_date 			= $data['l_date'];
 	$loan_amt 			= $data['amount'];
-	$duration 	= $data['duration'];
+	$duration 			= $data['duration'];
 	$rental 			= $data['rental'];
 	$l_type 			= $data['l_type'];
 	$l_method 			= $data['l_method'];
@@ -28,8 +28,11 @@
 	$total_paid  	  = $data1['total_paid'];
 	$brought_forward  = $data1['brought_forward'];
 
-	$first_forward_bal = $rental * $duration;
-	//$first_forward_bal = number_format($first_forward_bal1,2,".",",");
+	if($l_type=='weekly'){
+		$first_forward_bal = ($rental * $duration)/7;
+	}else{
+		$first_forward_bal = $rental * $duration;
+	}
 	
 	if(empty($brought_forward))
 	{

@@ -71,6 +71,31 @@ mysqli_select_db($con,DB_NAME);
                 <form id="loanAdd">
                   <div class="col-md-12">
                     <br>
+
+                  <div class="row">
+                    <div class="col-md-6 pr-3">
+                      <div class="form-group" style="border:2px solid; border-radius: 10px; padding: 10px; border-color: #ccccb3;">
+                        <label>Loan Type</label> <br>
+                        <label><input type="radio" id="t1" name="loan_type" value="daily" checked=""> Daily
+                        </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>
+                          <input type="radio" id="t2" name="loan_type" value="weekly"> Weekly
+                        </label><br>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 pr-3">
+                      <div class="form-group" style="border:2px solid; border-radius: 10px; padding: 10px; border-color: #ccccb3;">
+                        <label>Payment Method</label> <br>
+                        <label><input type="radio" id="m1" name="loan_method" value="normal" checked=""> Normal
+                        </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>
+                          <input type="radio" id="m2" name="loan_method" value="sunday off"> Sunday Off
+                        </label><br>
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="row">
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
@@ -143,7 +168,7 @@ mysqli_select_db($con,DB_NAME);
 
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
-                        <label>Duration</label>
+                        <label>Duration (Days)</label>
                         <input type="text" class="form-control" id="duration" name = "duration" placeholder="Duration" required>
                       </div>
                     </div>
@@ -155,31 +180,6 @@ mysqli_select_db($con,DB_NAME);
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-md-6 pr-3">
-                      <div class="form-group" style="border:2px solid; border-radius: 10px; padding: 10px; border-color: #ccccb3;">
-                        <label>Loan Type</label> <br>
-                        <label><input type="radio" id="t1" name="loan_type" value="daily" checked=""> Daily
-                        </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>
-                          <input type="radio" id="t2" name="loan_type" value="weekly"> Weekly
-                        </label><br>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 pr-3">
-                      <div class="form-group" style="border:2px solid; border-radius: 10px; padding: 10px; border-color: #ccccb3;">
-                        <label>Payment Method</label> <br>
-                        <label><input type="radio" id="m1" name="loan_method" value="normal" checked=""> Normal
-                        </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>
-                          <input type="radio" id="m2" name="loan_method" value="sunday off"> Sunday Off
-                        </label><br>
-                      </div>
-                    </div>
-                  </div>
-                  
-            
                   <div class="row">
                     <div class="update ml-auto mr-auto">
                       <input type="hidden" name ="submit" value="submit"/>
@@ -529,6 +529,14 @@ mysqli_select_db($con,DB_NAME);
   $('#no_installements').on('keyup',function(){
 
     /////////////////calculate rental///////////////
+    var type_value;
+
+    if (document.getElementById('t1').checked) {
+      type_value = document.getElementById('t1').value;
+    }
+    else if(document.getElementById('t2').checked) {
+      type_value = document.getElementById('t2').value;
+    }
 
     var amount = $('#amount').val();
     var int  = $('#int').val();
@@ -537,11 +545,19 @@ mysqli_select_db($con,DB_NAME);
     var interest;
     var rental;
 
-    interest = (Number(amount)*(Number(int)/100)*no)/30;
-    rental = (Number(amount)+Number(interest))/no;
-    duration = Number(no);
-    
+    if(type_value=='weekly'){
+      interest = (Number(amount)*(Number(int)/100)*no)/4;
+      rental = (Number(amount)+Number(interest))/no;
+      duration = Number(no) * 7;
+    }else{
+      interest = (Number(amount)*(Number(int)/100)*no)/30;
+      rental = (Number(amount)+Number(interest))/no;
+      duration = Number(no);
+    }
+
     $('#rental').val(rental.toFixed(2));
+
+    $('#duration').val(duration);
 
     ///////////////calc end date //////////////////
     var start_date = $('#l_date').val();
@@ -558,19 +574,6 @@ mysqli_select_db($con,DB_NAME);
     var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
 
     $('#end_date').val(end_date);
-
-    // if(no==60)
-    // {
-    //   duration = 59;
-    // }
-    // else if(no==90)
-    // {
-    //   duration = 89;
-    // }else
-    // {
-    //   duration = 99;
-    // }
-     $('#duration').val(duration);
 
   });
 
