@@ -51,23 +51,24 @@ mysqli_select_db($con,DB_NAME);
         <form >
           <div>
             <br>
-            <img src="images/logo.png" style="padding-left: 7%;"><br>
-             <span style="padding-left: 20px; font-size: 14px; color: black;"><b>NATIAL MICRO CREDIT AN</b></span><br>
-             <span style="padding-left: 28px; font-size: 14px; color: black;"><b> INVESTMENT (PVT) LTD.</b></span><br>
-             <span style="padding-left: 32px; font-size: revert; color: black;">(Reg No. PV00214503)</span><br><br>
-             <span style="font-size: small; color: black;"><b>Installement Receipt</b></span><br>
-             <span style="font-size: small; color: black;">Tel : 076 0364 350 / 070 3625 796</span><br>
-             <span style="font-size: small; color: black;">Bill Date : 
+            <!--<img src="images/logo.png" style="padding-left: 7%;"><br>-->
+             <span style="padding-left: 20px; font-size: 45px; color: black;"><b>NATIAL MICRO CREDIT AN</b></span><br>
+             <span style="padding-left: 55px; font-size: 45px; color: black;"><b> INVESTMENT (PVT) LTD.</b></span><br>
+             <span style="padding-left: 100px; font-size: 40px; color: black;">(Reg No. PV00214503)</span><br><br>
+             <span style="font-size: 40px; color: black;"><b>Installement Receipt</b></span><br>
+             <span style="font-size: 35px; color: black;">Tel : 076 0364 350 / 070 3625 796</span><br>
+             <span style="font-size: 35px; color: black;">Bill Date : 
              <?php 
                 $date = new DateTime(null, new DateTimeZone('Etc/GMT+8'));
                         echo $date->format('Y-m-d h:i:sA'); ?>       
               </span><br>
-              <span style="font-size: small; color: black;">Route : Mahiyangana-Hadungamuwa</span><br>
-              <span style="font-size: small; color: black;">Cash coll : Mr.Wijethunga</span><br>
+              <span style="font-size: 35px; color: black;">Route : Mahiyangana-Hadungamuwa</span><br>
+              <span style="font-size: 40px; color: black;">Cash coll : Mr.Hashitha</span><br>
           </div>
-          <span style="color: black;">--------------------------------------------------</span> <br>
+          <b><span style="color: black;">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span> <br></b>
 
-          <span style="font-size: small; color: black;">Customer : 
+          <span style="font-size: 43px; color: black;">Customer : 
+          <b>
           <?php
              $name_id = $data['cust_id'];
              $custom = "SELECT * FROM customer WHERE cust_id = '$name_id' ";
@@ -75,60 +76,80 @@ mysqli_select_db($con,DB_NAME);
              $dataName = mysqli_fetch_array($result1);
              echo $dataName['name'];
           ?>
+          </b>
           </span><br>
-          <span style="padding-left: 83px; font-size: small;"><?php echo "( ".$data['cust_id']." )" ?></span> <br>
+          <span style="padding-left: 83px; font-size: 43px;"><b><?php echo "( ".$data['cust_id']." )" ?></b></span> <br>
 
-          <span style="font-size: small; color: black;">Loan Amount : 
+          <span style="font-size: 43px; color: black;">Loan Amount : 
+          <b>
           <?php $amount = $data['amount'];
                 echo number_format($amount,2,".",",") 
           ?>
+          </b>
           </span><br>
 
-          <span style="font-size: small; color: black;">Rental : 
+          <span style="font-size: 43px; color: black;">Rental : 
+          <b>
           <?php $rental = $data['rental'];
                 echo number_format($rental,2,".",",")  
           ?>
+          </b>
           </span><br>
 
-          <span style="font-size: small; color: black;">Duration : 
+          <span style="font-size: 43px; color: black;">Duration :
+          <b>
           <?php echo $data['duration'] ?>
+          </b>
           </span><br>
 
-          <span style="font-size: small; color: black;">Start Date : 
+          <span style="font-size: 43px; color: black;">Start Date : 
+          <b>
           <?php echo $data['l_date'] ?>
+          </b>
           </span><br>
 
-          <span style="font-size: small; color: black;">End Date : 
+          <span style="font-size: 43px; color: black;">End Date : 
+          <b>
           <?php echo $data['end_date'] ?>
+          </b>
           </span><br>
 
-          <span style="color: black;">--------------------------------------------------</span> <br>
+          <b><span style="color: black;">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span> <br></b>
 
-          <span style="font-size: small; color: black;">Today paid : 
+          <span style="font-size: 43px; color: black;">Today paid : 
+          <b>
           <?php $paid = $data['paid'];
                 echo number_format($paid,2,".",",") 
           ?>
+          </b>
           </span><br>
 
-          <span style="font-size: small; color: black;">Arreares/Additional : 
+          <span style="font-size: 43px; color: black;">Arreares/Additional : 
+          <b>
           <?php $arrears = $data['arrears'];
                 echo number_format($arrears,2,".",",") 
           ?>
+          </b>
           </span><br>
 
-          <span style="font-size: small; color: black;">Total paid : 
+          <span style="font-size: 43px; color: black;">Total paid : 
+          <b>
           <?php $total_paid = $data['total_paid'];
                 echo number_format($total_paid,2,".",",")  
           ?>
+          </b>
           </span><br>
 
-          <span style="font-size: small; color: black;">Brought forward : 
+          <span style="font-size: 43px; color: black;">Brought forward : 
+          <b>
           <?php $brought_forward =$data['brought_forward'];
                 echo number_format($brought_forward,2,".",",") ?>
+           </b>
           </span><br>
 
-          <span style="color: black;">--------------------------------------------------</span>
-          <h5 style="padding-left: 5%; font-size: small; color: black;"><b>THANK YOU!</b></h5>
+          <b><span style="color: black;">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span> <br></b><br>
+          <h5 style="padding-left: 18%; font-size: 40px; color: black;"><b>THANK YOU!</b></h5>
+          <br>
          </form> 
        </div>
   </div>
