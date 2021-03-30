@@ -63,7 +63,7 @@ mysqli_select_db($con,DB_NAME);
                         echo $date->format('Y-m-d h:i:sA'); ?>       
               </span><br>
               <span style="font-size: 35px; color: black;">Route : Mahiyangana-Hadungamuwa</span><br>
-              <!--<span style="font-size: 40px; color: black;">Cash coll : Mr.Wijethunga</span><br>-->
+              <span style="font-size: 40px; color: black;">Cash coll : Mr.Hashitha</span><br>
           </div>
           <b><span style="color: black;">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span> <br></b>
 
