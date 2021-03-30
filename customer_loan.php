@@ -588,7 +588,7 @@ mysqli_select_db($con,DB_NAME);
 
     interest = (Number(amount)*(Number(int)/100)*no)/30;
     duration = (Number(amount)+Number(interest))/rental;
-    
+
     $('#duration').val(duration);
 
     //////////////////create end date //////////////////
