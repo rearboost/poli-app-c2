@@ -78,7 +78,7 @@ mysqli_select_db($con,DB_NAME);
           ?>
           </b>
           </span><br>
-          <span style="padding-left: 83px; font-size: 43px;"><b><?php echo "( ".$data['cust_id']." )" ?></b></span> <br>
+          <span style="padding-left: 83px; font-size: 43px;"><b><?php echo "( ".$dataName['reg_no']." )" ?></b></span> <br>
 
           <span style="font-size: 43px; color: black;">Loan Amount : 
           <b>

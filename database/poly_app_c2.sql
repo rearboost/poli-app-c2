@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2021 at 03:57 PM
+-- Generation Time: Mar 30, 2021 at 09:37 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -48,6 +48,7 @@ CREATE TABLE `cheque` (
 CREATE TABLE `customer` (
   `cust_id` varchar(10) NOT NULL,
   `type` varchar(20) NOT NULL,
+  `reg_no` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `address` varchar(150) NOT NULL,
   `vehicle_no` text NOT NULL,
@@ -58,13 +59,13 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`cust_id`, `type`, `name`, `address`, `vehicle_no`, `contact`) VALUES
-('D0001', 'Daily', 'Hasith Lakmal', 'panadura', 'WP1024', '0714789548'),
-('D0002', 'Daily', 'anne fernando', 'panadura', 'WP1056', '0712457895'),
-('M0001', 'Monthly', 'Dhanuka Gamage', 'Kalutara,North', 'WP1026', ''),
-('M0002', 'Monthly', 'Indunil Prasad', 'colombo 03', 'gcb', '0771234567'),
-('W0001', 'Weekly', 'Madusanka', 'Gampaha', '', '078 4598521'),
-('W0002', 'Weekly', 'Malshan', 'colombo 03', '', '011 7841452');
+INSERT INTO `customer` (`cust_id`, `type`, `reg_no`, `name`, `address`, `vehicle_no`, `contact`) VALUES
+('D0001', 'Daily', 'HL123456', 'Hasith Lakmal', 'panadura', 'WP1024', '0714789548'),
+('D0002', 'Daily', 'AF789456', 'anne fernando', 'panadura', 'WP1056', '0712457895'),
+('M0001', 'Monthly', '', 'Dhanuka Gamage', 'Kalutara,North', 'WP1026', '0714789548'),
+('M0002', 'Monthly', '', 'Indunil Prasad', 'colombo 03', 'gcb', '0771234567'),
+('W0001', 'Weekly', '', 'Madusanka', 'Gampaha', '', '078 4598521'),
+('W0002', 'Weekly', '', 'Malshan', 'colombo 03', '', '011 7841452');
 
 -- --------------------------------------------------------
 
@@ -92,10 +93,10 @@ CREATE TABLE `loan` (
 --
 
 INSERT INTO `loan` (`loan_no`, `l_date`, `amount`, `interest`, `no_installements`, `rental`, `duration`, `end_date`, `cust_id`, `l_status`, `l_type`, `l_method`) VALUES
-(1, '2021-02-01', 30000.00, 10, 60, 600.00, 59, '2021-04-04', 'D0001', 1, 'daily', 'normal'),
-(2, '2021-02-03', 50000.00, 10, 60, 1000.00, 59, '2021-04-15', 'D0002', 1, 'daily', 'sunday off'),
-(3, '2021-03-05', 30000.00, 10, 60, 600.00, 59, '2021-05-04', 'M0001', 1, 'weekly', 'normal'),
-(5, '2021-03-03', 30000.00, 10, 60, 600.00, 59, '2021-05-12', 'M0002', 1, 'weekly', 'sunday off');
+(1, '2021-02-01', 30000.00, 10, 60, 600.00, 60, '2021-04-04', 'D0001', 1, 'daily', 'normal'),
+(2, '2021-03-10', 200000.00, 7, 8, 28500.00, 56, '2021-05-05', 'D0002', 1, 'weekly', 'normal'),
+(3, '2021-02-03', 10000.00, 8, 60, 200.00, 58, '2021-04-12', 'M0001', 1, 'daily', 'sunday off'),
+(4, '2021-03-10', 200000.00, 7, 8, 28500.00, 56, '2021-05-14', 'M0002', 1, 'weekly', 'sunday off');
 
 -- --------------------------------------------------------
 
@@ -120,7 +121,8 @@ CREATE TABLE `loan_installement` (
 --
 
 INSERT INTO `loan_installement` (`id`, `li_date`, `month`, `year`, `paid`, `arrears`, `total_paid`, `brought_forward`, `loan_no`) VALUES
-(1, '2021-02-03', '02', '2021', 600.00, 600.00, 600.00, '35400.00', 1);
+(1, '2021-03-04', '03', '2021', 13000.00, 5000.00, 13000.00, '23000.00', 1),
+(2, '2021-03-17', '03', '2021', 28500.00, 0.00, 28500.00, '199500.00', 2);
 
 -- --------------------------------------------------------
 
@@ -172,7 +174,7 @@ CREATE TABLE `summary` (
 --
 
 INSERT INTO `summary` (`id`, `year`, `month`, `loanAMT`, `debtAMT`, `createDate`) VALUES
-(1, '2021', '03', '170000.00', '600.00', '2021-03-16'),
+(1, '2021', '03', '710000.00', '53700.00', '2021-03-16'),
 (2, '2021', '01', '0.00', '0.00', '2021-03-16'),
 (3, '2021', '02', '0.00', '0.00', '2021-03-16'),
 (4, '2021', '04', '0.00', '0.00', '2021-03-16'),
@@ -264,12 +266,12 @@ ALTER TABLE `cheque`
 -- AUTO_INCREMENT for table `loan`
 --
 ALTER TABLE `loan`
-  MODIFY `loan_no` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `loan_no` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `loan_installement`
 --
 ALTER TABLE `loan_installement`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `special_days`
 --

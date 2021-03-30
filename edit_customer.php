@@ -16,6 +16,7 @@
     {
         $cust_id     = $_POST['c_id1'];
         $type        = $_POST['type1'];
+        $reg_no      = $_POST['cust_reg1'];
         $name        = $_POST['name1'];
         $address     = $_POST['address1'];
         $vehicle_no  = $_POST['reg_no1'];
@@ -23,6 +24,7 @@
       
         $edit = mysqli_query($con,"UPDATE customer 
                                           SET name  ='$name', 
+                                              reg_no ='$reg_no', 
                                               address ='$address', 
                                               vehicle_no ='$vehicle_no', 
                                               contact ='$contact' 
@@ -52,54 +54,60 @@
         <form  id="customerEdit" >
           <div class="col-md-12">
             <div class="row">
-              <div class="col-md-7 pr-1">
+              <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>Customer ID</label>
                   <input type="text" class="form-control" name ="c_id1" value="<?php echo $data['cust_id']?>" readonly>
                 </div>
-              </div>
-            </div>
-            <div class="row">      
-              <div class="col-md-7 pr-1">
+              </div>     
+              <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>Customer Type</label>
                     <input type="text" class="form-control" name ="type1" value="<?php echo $data['type']?>" disabled>
                 </div>
               </div>
             </div>
+
             <div class="row">
-              <div class="col-md-7 pr-1">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Customer Registration No</label>
+                  <input type="text" class="form-control" name ="cust_reg1" value="<?php echo $data['reg_no']?>">
+                </div>
+              </div>  
+              <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>Customer Name</label>
                   <input type="text" class="form-control" name ="name1" value="<?php echo $data['name']?>">
                 </div>
-              </div>
-              </div>
-              <div class="row">                  
-              <div class="col-md-7 pr-1">
+              </div>                 
+            </div>
+
+            <div class="row">         
+              <div class="col-md-12 pr-1">
                 <div class="form-group">
                   <label>Address</label>
                   <input type="text" class="form-control" name ="address1" value="<?php echo $data['address']?>">
                 </div>
               </div>
-              </div>
-              <div class="row">                  
-              <div class="col-md-7 pr-1">
+            </div>
+
+            <div class="row">                  
+              <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>Vehicle Reg_no</label>
                   <input type="text" class="form-control" name = "reg_no1" value="<?php echo $data['vehicle_no']?>">
                 </div>
-              </div>
-              </div>
-              <div class="row">                  
-              <div class="col-md-7 pr-1">
+              </div>                 
+              <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>Contact No</label>
                   <input type="text" class="form-control" placeholder="Mobile / Land" name = "contact1" value="<?php echo $data['contact']?>" required>
                 </div>
               </div>
-              </div>
-              <div class="row">
+            </div>
+
+            <div class="row">
               <div class="update ml-auto mr-auto">
                 <input type="hidden" name ="update" value="update"/>
                 <button type="submit" name="update" class="btn btn-primary btn-round">Update</button>

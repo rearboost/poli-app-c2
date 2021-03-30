@@ -71,7 +71,7 @@ mysqli_select_db($con,DB_NAME);
                       <form id="customerAdd">
                         <div class="col-md-12">
                         <div class="row">
-                          <div class="col-md-7 pr-1">
+                          <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>Customer Type</label>
                                 <select class="form-control form-selectBox" id="customerType" name ="type" required>
@@ -81,47 +81,53 @@ mysqli_select_db($con,DB_NAME);
                                 </select>
                             </div>
                           </div>
-                          </div>
-                          <div class="row">
-                          <div class="col-md-7 pr-1">
+                          <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>Customer ID</label>
                               <input type="text" class="form-control" name ="id" id="customerID" readonly required>
                             </div>
                           </div>
-                          </div>
+                        </div>
+
                         <div class="row">
-                          <div class="col-md-7 pr-1">
+                          <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                              <label>Customer Registration Number</label>
+                              <input type="text" class="form-control" placeholder="Registration No" name="cust_reg" required>
+                            </div>
+                          </div>
+                          <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>Customer Name</label>
-                              <input type="text" class="form-control" placeholder="Name" name = "name" required>
+                              <input type="text" class="form-control" placeholder="Name" name="name" required>
                             </div>
                           </div>
-                          </div>
-                          <div class="row">                  
-                          <div class="col-md-7 pr-1">
+                        </div>
+
+                        <div class="row">                  
+                          <div class="col-md-12 pr-1">
                             <div class="form-group">
                               <label>Address</label>
-                              <input type="text" class="form-control" placeholder="Address" name = "address" required>
+                              <input type="text" class="form-control" placeholder="Address" name="address" required>
                             </div>
                           </div>
-                          </div>
-                          <div class="row">                  
-                          <div class="col-md-7 pr-1">
+                        </div>
+                        
+                        <div class="row">                  
+                          <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>Vehicle Reg_no</label>
-                              <input type="text" class="form-control" placeholder="Vehicle Registration No" name = "reg_no">
+                              <input type="text" class="form-control" placeholder="Vehicle Registration No" name="reg_no">
                             </div>
-                          </div>
-                          </div>
-                          <div class="row">                  
-                          <div class="col-md-7 pr-1">
+                          </div>                 
+                          <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>Contact No</label>
                               <input type="text" class="form-control" placeholder="Mobile / Land" name = "contact" required>
                             </div>
                           </div>
-                          </div>
+                        </div>
+
                           <div class="row">
                           <div class="update ml-auto mr-auto">
                             <input type="hidden" name ="submit" value="submit"/>
@@ -132,12 +138,13 @@ mysqli_select_db($con,DB_NAME);
                                 if(isset($_POST['submit'])){
                                   $id       = $_POST['id'];
                                   $type     = $_POST['type'];
+                                  $cust_reg = $_POST['cust_reg'];
                                   $name     = $_POST['name'];
                                   $address  = $_POST['address'];
                                   $reg_no   = $_POST['reg_no'];
                                   $contact   = $_POST['contact'];
 
-                                $insert1 = "INSERT INTO customer (cust_id,type,name,address,vehicle_no,contact) VALUES ('$id','$type','$name','$address','$reg_no','$contact')";
+                                $insert1 = "INSERT INTO customer (cust_id,type,reg_no,name,address,vehicle_no,contact) VALUES ('$id','$type','$cust_reg','$name','$address','$reg_no','$contact')";
                                 mysqli_query($con,$insert1);
                                 }
                             ?>
@@ -155,12 +162,13 @@ mysqli_select_db($con,DB_NAME);
                     <thead class="text-primary">
                       <th>                    ID</th>
                       <th>                    Type</th>
+                      <th>                    Reg No</th>
                       <th>                    Name</th>
                       <th>                    Address</th>
                       <th>                    Vehicle No</th>
                       <th>                    Contact</th>
-                      <th class="text-center"> Edit 				</th>
-                      <th class="text-center"> Delete 			</th>
+                      <th class="text-center">Edit 				</th>
+                      <th class="text-center">Delete 			</th>
                     </thead>
                     <tbody>
                       <?php
@@ -174,6 +182,7 @@ mysqli_select_db($con,DB_NAME);
                           <tr>
                             <td> <?php echo $row['cust_id'] ?>     </td>
                             <td> <?php echo $row['type'] ?>        </td>
+                            <td> <?php echo $row['reg_no'] ?>        </td>
                             <td> <?php echo $row['name']?>         </td>
                             <td> <?php echo $row['address']  ?>    </td>
                             <td> <?php echo $row['vehicle_no']  ?> </td>
