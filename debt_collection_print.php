@@ -51,7 +51,7 @@ mysqli_select_db($con,DB_NAME);
         <form >
           <div>
             <br>
-            <!--<img src="images/logo.png" style="padding-left: 7%;"><br>-->
+            <img src="images/poli_app.png" style="padding-left: 15%;"><br>
              <span style="padding-left: 20px; font-size: 45px; color: black;"><b>NATIAL MICRO CREDIT AN</b></span><br>
              <span style="padding-left: 55px; font-size: 45px; color: black;"><b> INVESTMENT (PVT) LTD.</b></span><br>
              <span style="padding-left: 100px; font-size: 40px; color: black;">(Reg No. PV00214503)</span><br><br>
@@ -59,8 +59,8 @@ mysqli_select_db($con,DB_NAME);
              <span style="font-size: 35px; color: black;">Tel : 076 0364 350 / 070 3625 796</span><br>
              <span style="font-size: 35px; color: black;">Bill Date : 
              <?php 
-                $date = new DateTime(null, new DateTimeZone('Etc/GMT+8'));
-                        echo $date->format('Y-m-d h:i:sA'); ?>       
+                $date = new DateTime(null, new DateTimeZone('Asia/Colombo'));
+                        echo $date->format('Y-m-d h:i: sA'); ?>       
               </span><br>
               <span style="font-size: 35px; color: black;">Route : Mahiyangana-Hadungamuwa</span><br>
               <span style="font-size: 40px; color: black;">Cash coll : Mr.Hashitha</span><br>
