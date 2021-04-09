@@ -33,6 +33,9 @@ mysqli_select_db($con,DB_NAME);
   <link href="assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+
 </head>
 
 <body class="">
@@ -51,23 +54,23 @@ mysqli_select_db($con,DB_NAME);
         <form >
           <div>
             <br>
-            <img src="images/poli_app.png" style="padding-left: 15%;"><br>
+            <img src="images/poli_app.png" style="padding-left: 17%;"><br>
              <span style="padding-left: 20px; font-size: 45px; color: black;"><b>NATIAL MICRO CREDIT AN</b></span><br>
              <span style="padding-left: 55px; font-size: 45px; color: black;"><b> INVESTMENT (PVT) LTD.</b></span><br>
              <span style="padding-left: 100px; font-size: 40px; color: black;">(Reg No. PV00214503)</span><br><br>
              <span style="font-size: 40px; color: black;"><b>Installement Receipt</b></span><br>
-             <span style="font-size: 35px; color: black;">Tel : 076 0364 350 / 070 3625 796</span><br>
-             <span style="font-size: 35px; color: black;">Bill Date : 
+             <span style="font-size: 35px; color: black; font-family: sans-serif;">Tel : 076 0364 350 / 070 3625 796</span><br>
+             <span style="font-size: 35px; color: black; font-family: sans-serif;">Bill Date : 
              <?php 
                 $date = new DateTime(null, new DateTimeZone('Asia/Colombo'));
                         echo $date->format('Y-m-d h:i: sA'); ?>       
               </span><br>
-              <span style="font-size: 35px; color: black;">Route : Mahiyangana-Hadungamuwa</span><br>
-              <span style="font-size: 40px; color: black;">Cash coll : Mr.Hashitha</span><br>
+              <span style="font-size: 35px; color: black; font-family: sans-serif;">Route : Mahiyangana-Hadungamuwa</span><br>
+              <span style="font-size: 40px; color: black; font-family: sans-serif;">Cash coll : Mr.Hashitha</span><br>
           </div>
           <b><span style="color: black;">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span> <br></b>
 
-          <span style="font-size: 43px; color: black;">Customer : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Customer : 
           <b>
           <?php
              $name_id = $data['cust_id'];
@@ -80,7 +83,7 @@ mysqli_select_db($con,DB_NAME);
           </span><br>
           <span style="padding-left: 83px; font-size: 43px;"><b><?php echo "( ".$dataName['reg_no']." )" ?></b></span> <br>
 
-          <span style="font-size: 43px; color: black;">Loan Amount : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Loan Amount : 
           <b>
           <?php $amount = $data['amount'];
                 echo number_format($amount,2,".",",") 
@@ -88,7 +91,7 @@ mysqli_select_db($con,DB_NAME);
           </b>
           </span><br>
 
-          <span style="font-size: 43px; color: black;">Rental : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Rental : 
           <b>
           <?php $rental = $data['rental'];
                 echo number_format($rental,2,".",",")  
@@ -96,19 +99,19 @@ mysqli_select_db($con,DB_NAME);
           </b>
           </span><br>
 
-          <span style="font-size: 43px; color: black;">Duration :
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Duration :
           <b>
           <?php echo $data['duration'] ?>
           </b>
           </span><br>
 
-          <span style="font-size: 43px; color: black;">Start Date : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Start Date : 
           <b>
           <?php echo $data['l_date'] ?>
           </b>
           </span><br>
 
-          <span style="font-size: 43px; color: black;">End Date : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">End Date : 
           <b>
           <?php echo $data['end_date'] ?>
           </b>
@@ -116,7 +119,7 @@ mysqli_select_db($con,DB_NAME);
 
           <b><span style="color: black;">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span> <br></b>
 
-          <span style="font-size: 43px; color: black;">Today paid : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Today paid : 
           <b>
           <?php $paid = $data['paid'];
                 echo number_format($paid,2,".",",") 
@@ -124,7 +127,7 @@ mysqli_select_db($con,DB_NAME);
           </b>
           </span><br>
 
-          <span style="font-size: 43px; color: black;">Arreares/Additional : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Arreares/Additional : 
           <b>
           <?php $arrears = $data['arrears'];
                 echo number_format($arrears,2,".",",") 
@@ -132,7 +135,7 @@ mysqli_select_db($con,DB_NAME);
           </b>
           </span><br>
 
-          <span style="font-size: 43px; color: black;">Total paid : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Total paid : 
           <b>
           <?php $total_paid = $data['total_paid'];
                 echo number_format($total_paid,2,".",",")  
@@ -140,14 +143,14 @@ mysqli_select_db($con,DB_NAME);
           </b>
           </span><br>
 
-          <span style="font-size: 43px; color: black;">Brought forward : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Brought forward : 
           <b>
           <?php $brought_forward =$data['brought_forward'];
                 echo number_format($brought_forward,2,".",",") ?>
            </b>
           </span><br>
 
-          <span style="font-size: 43px; color: black;">Closing balance : 
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">Closing balance : 
           <b>
           <?php $closing_bal =$data['brought_forward'];
                 echo number_format($closing_bal,2,".",",") ?>
