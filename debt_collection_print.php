@@ -147,6 +147,13 @@ mysqli_select_db($con,DB_NAME);
            </b>
           </span><br>
 
+          <span style="font-size: 43px; color: black;">Closing balance : 
+          <b>
+          <?php $closing_bal =$data['brought_forward'];
+                echo number_format($closing_bal,2,".",",") ?>
+           </b>
+          </span><br>
+
           <b><span style="color: black;">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span> <br></b><br>
           <h5 style="padding-left: 18%; font-size: 40px; color: black;"><b>THANK YOU!</b></h5>
           <br>
