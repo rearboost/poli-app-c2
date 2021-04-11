@@ -48,6 +48,14 @@ mysqli_select_db($con,DB_NAME);
     $qry = mysqli_query($con,"SELECT * FROM loan,loan_installement WHERE loan.loan_no = loan_installement.loan_no AND id=$id "); // select query
 
     $data = mysqli_fetch_array($qry); // fetch data
+
+    $l_type = $data['l_type'];
+    if($l_type=="weekly"){
+
+      $duration = 'W - '.$data['duration']/7;
+    }else{
+      $duration = 'D - '.$data['duration'];
+    }
                  
 ?>
        <div class="print_form">
@@ -101,7 +109,7 @@ mysqli_select_db($con,DB_NAME);
 
           <span style="font-size: 43px; color: black; font-family: sans-serif;">Duration :
           <b>
-          <?php echo $data['duration'] ?>
+          <?php echo $duration; ?>
           </b>
           </span><br>
 
