@@ -66,15 +66,15 @@ mysqli_select_db($con,DB_NAME);
              <span style="padding-left: 20px; font-size: 45px; color: black;"><b>NATIAL MICRO CREDIT AN</b></span><br>
              <span style="padding-left: 55px; font-size: 45px; color: black;"><b> INVESTMENT (PVT) LTD.</b></span><br>
              <span style="padding-left: 100px; font-size: 40px; color: black;">(Reg No. PV00214503)</span><br><br>
-             <span style="font-size: 40px; color: black;"><b>Installement Receipt</b></span><br>
-             <span style="font-size: 35px; color: black; font-family: sans-serif;">Tel : 076 0364 350 / 070 3625 796</span><br>
-             <span style="font-size: 35px; color: black; font-family: sans-serif;">Bill Date : 
+             <span style="font-size: 43px; color: black;"><b>Installement Receipt</b></span><br>
+             <span style="font-size: 43px; color: black; font-family: sans-serif;">Tel : 076 0364 350 / 070 3625 796</span><br>
+             <span style="font-size: 43px; color: black; font-family: sans-serif;">Bill Date : 
              <?php 
                 $date = new DateTime(null, new DateTimeZone('Asia/Colombo'));
                         echo $date->format('Y-m-d h:i: sA'); ?>       
               </span><br>
-              <span style="font-size: 35px; color: black; font-family: sans-serif;">Route : Mahiyangana-Hadungamuwa</span><br>
-              <span style="font-size: 40px; color: black; font-family: sans-serif;">Cash coll : Mr.Hashitha</span><br>
+              <span style="font-size: 43px; color: black; font-family: sans-serif;">Route : Mahiyangana-Hadungamuwa</span><br>
+              <span style="font-size: 43px; color: black; font-family: sans-serif;">Cash coll : Mr.Hashitha</span><br>
           </div>
           <b><span style="color: black;">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span> <br></b>
 
@@ -192,7 +192,7 @@ mysqli_select_db($con,DB_NAME);
 
   ///////////////////////////////////////  Print  
   $(document).ready(function(){
-      setTimeout(function(){ window.print(); }, 2000);
+      setTimeout(function(){ window.print(); }, 1500);
      // setTimeout(window.close, 3000);
   });
   ///////////////////////////////////////////
