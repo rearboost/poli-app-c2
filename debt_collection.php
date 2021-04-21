@@ -227,6 +227,9 @@ mysqli_select_db($con,DB_NAME);
                             $total_paid      = $_POST['total_paid'];
                             $brought_forward = $_POST['brought_forward'];
 
+                            if($arreares == ''){
+                              echo "Required field is empty.";
+                            }else{
                             $date = explode('-', $li_date);
 
                             $debt_year  = $date[0];
@@ -291,9 +294,9 @@ mysqli_select_db($con,DB_NAME);
                             }
 
                           $data = mysqli_query($con,"SELECT l.loan_no, l.amount FROM customer c , loan l WHERE c.cust_id = l.cust_id AND l.cust_id = '$custom_id' AND l.l_status = 1");
-                          		$row_l = mysqli_fetch_assoc($data);
-                          		$loan_no = $row_l['loan_no'];
-                          		$loan_amount = $row_l['amount'];
+                              $row_l = mysqli_fetch_assoc($data);
+                              $loan_no = $row_l['loan_no'];
+                              $loan_amount = $row_l['amount'];
 
                           $insert = "INSERT INTO loan_installement (id,li_date,month,year,paid,arrears, total_paid,brought_forward,loan_no) VALUES ($li_id,'$li_date','$debt_month','$debt_year',$paid,$arreares,$total_paid,$brought_forward,$loan_no)";
                           mysqli_query($con,$insert);
@@ -301,6 +304,9 @@ mysqli_select_db($con,DB_NAME);
                           if($brought_forward <= 0){
                             $update_status = mysqli_query($con,"UPDATE loan SET l_status =0 WHERE loan_no=$loan_no");
                           }
+
+                            }
+
 
                           }
 
@@ -631,6 +637,8 @@ function checkAmt(){
       }
       else if (type=='daily' && method=='sunday off'){
            new_days = Number(days)-(Number(sun)+Number(poyadays));
+      }else{
+        new_days = 0;
       }
       $('#newdays').val(new_days);
     }
@@ -652,6 +660,7 @@ function checkAmt(){
       var old_arreares =  obj.arrears
       var rental       =  obj.rental
 
+
       amount = Number(rental)*Number(new_days);
 
       new_forward  = Number(old_forward)-Number(paid);
@@ -662,11 +671,17 @@ function checkAmt(){
       }else{
         new_arreares = Number(old_arreares)+(Number(amount)-Number(paid));
       }
+
+      if(isNaN(new_arreares)){
+        $('#arreares').val('');
+        $('#arreares').prop('required', true);
+      }else{
+        $('#arreares').val(new_arreares.toFixed(2));      
+      }
   
        $('#amount').val(amount.toFixed(2));
        $('#brought_forward').val(new_forward.toFixed(2));
        $('#total_paid').val(new_total.toFixed(2));
-       $('#arreares').val(new_arreares.toFixed(2));
     }
   });
 }
@@ -698,23 +713,28 @@ function editView(id){
         e.preventDefault();
 
         var nextId = $('#nextId').val();
-        
-        $.ajax({
-          type: 'post',
-          url: 'debt_collection.php',
-          data: $('#collectionDebt').serialize(),
-          success: function () {
-            swal({
-              title: "Good job !",
-              text: "Successfully Submited",
-              icon: "success",
-              button: "Ok !",
-              });
-              setTimeout(function(){window.open('debt_collection_print?id='+nextId, '_blank'); }, 2500);
-              setTimeout(function(){ location.reload(); }, 2500);
-          }
-        });
 
+        var arreares = $('#arreares').val();
+
+        if(arreares==''){
+          alert('Submission Failed.Required Field is Empty.');
+        }else{
+          $.ajax({
+            type: 'post',
+            url: 'debt_collection.php',
+            data: $('#collectionDebt').serialize(),
+            success: function () {
+              swal({
+                title: "Good job !",
+                text: "Successfully Submited",
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){window.open('debt_collection_print?id='+nextId, '_blank'); }, 2500);
+                setTimeout(function(){ location.reload(); }, 2500);
+            }
+          });
+        }
       });
   });
 
