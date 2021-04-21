@@ -657,7 +657,7 @@ function checkAmt(){
       new_forward  = Number(old_forward)-Number(paid);
       new_total    = Number(old_total)+Number(paid);
 
-      if(paid==amount){
+      if(old_arreares==0 && paid==amount){
         new_arreares = 0.00;
       }else{
         new_arreares = Number(old_arreares)+(Number(amount)-Number(paid));
