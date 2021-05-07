@@ -165,6 +165,19 @@ mysqli_select_db($con,DB_NAME);
            </b>
           </span><br>
 
+          <?php 
+          $penalty_status = $data['penalty_status'];
+          if ($penalty_status==1): ?>
+
+          <span style="font-size: 43px; color: black; font-family: sans-serif;">
+          
+          <?php $penalty =$data['penalty'];
+                echo '* Including <b>' . number_format($penalty,2,".",",") . '</b> of penalty fee.' ?>
+           
+          </span><br>
+          <?php else: ?>
+          <?php endif ?>
+
           <b><span style="color: black;">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span> <br></b><br>
           <h5 style="padding-left: 18%; font-size: 40px; color: black;"><b>THANK YOU!</b></h5>
           <br>

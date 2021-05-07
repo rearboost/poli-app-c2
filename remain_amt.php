@@ -7,7 +7,7 @@
 
 	$customer_id = $_POST['id'];
 
-	$get_loan = mysqli_query($con,"SELECT loan_no,l_date,amount,duration,	rental,l_type,l_method FROM loan l WHERE cust_id = '$customer_id' AND l_status = 1");
+	$get_loan = mysqli_query($con,"SELECT loan_no,l_date,amount,duration,end_date,	rental,daily_rental,l_type,l_method,penalty_status FROM loan l WHERE cust_id = '$customer_id' AND l_status = 1");
 
 	$data = mysqli_fetch_array($get_loan); 
 
@@ -16,8 +16,11 @@
 	$loan_amt 			= $data['amount'];
 	$duration 			= $data['duration'];
 	$rental 			= $data['rental'];
+	$daily_rental 		= $data['daily_rental'];
 	$l_type 			= $data['l_type'];
 	$l_method 			= $data['l_method'];
+	$penalty_status 	= $data['penalty_status'];
+	$end_date 			= $data['end_date'];
 	
 	$check_no = mysqli_query($con,"SELECT * FROM (SELECT * FROM loan_installement WHERE loan_installement.loan_no = '$loan_no') V ORDER BY V.id DESC LIMIT 1;");
 
@@ -52,12 +55,15 @@
 	$myObj->loan_amt 		 = $loan_amt;
 	$myObj->duration 		 = $duration;
 	$myObj->rental 			 = $rental;
+	$myObj->daily_rental 	 = $daily_rental;
 	$myObj->l_type 			 = $l_type;
 	$myObj->l_method 		 = $l_method;
+	$myObj->penalty_status 	 = $penalty_status;
 	$myObj->brought_forward  = $brought_forward;
 	$myObj->total_paid  	 = $total_paid;
 	$myObj->arrears 		 = $arrears;
 	$myObj->pre_date 		 = $pre_date;
+	$myObj->end_date 		 = $end_date;
 
 	$myJSON = json_encode($myObj);
 

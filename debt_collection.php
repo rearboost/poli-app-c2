@@ -16,24 +16,7 @@ mysqli_select_db($con,DB_NAME);
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Poli App - DEBT COLLECTION
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="assets/demo/demo.css" rel="stylesheet" />
-</head>
+<?php include('include/head.php'); ?>
 
 <body class="">
   <div class="wrapper ">
@@ -124,8 +107,10 @@ mysqli_select_db($con,DB_NAME);
                         <input type="text" class="form-control" id="brought_forward" name="brought_forward" placeholder="LKR. 0.00" required readonly="">
                       </div>
                     </div>
-
                   </div>
+
+                  <p id="expiry_msg" style="color: red;" hidden> * The loan end date has been expired. Consider about the penalty fee.</p>
+
                   <div class="row">
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
@@ -144,37 +129,37 @@ mysqli_select_db($con,DB_NAME);
                   <div class="row">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="type" name = "type" required disabled placeholder="type" hidden> 
+                        <input type="text" class="form-control" id="type" name = "type" required readonly placeholder="type" hidden> 
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="method" name = "method" required disabled placeholder="method" hidden>
+                        <input type="text" class="form-control" id="method" name = "method" required readonly placeholder="method" hidden>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="days" name = "day" required disabled placeholder="days" hidden>
+                        <input type="text" class="form-control" id="days" name = "day" required readonly placeholder="days" hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="pre" id="pre_date" name = "pre_date" required disabled hidden>
+                        <input type="text" class="form-control" placeholder="pre" id="pre_date" name = "pre_date" required readonly hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-text">
-                        <input type="text" class="form-control" placeholder="now" id="now_date" name = "now_date" required disabled hidden>
+                        <input type="text" class="form-control" placeholder="now" id="now_date" name = "now_date" required readonly hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="sunday" id="sunday" name = "sunday" required disabled hidden>
+                        <input type="text" class="form-control" placeholder="sunday" id="sunday" name = "sunday" required readonly hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="poyaday" id="poyaday" name = "poyaday" required disabled hidden>
+                        <input type="text" class="form-control" placeholder="poyaday" id="poyaday" name = "poyaday" required readonly hidden>
                       </div>
                     </div>
                     <div class="col-md-3 pr-3">
@@ -209,6 +194,7 @@ mysqli_select_db($con,DB_NAME);
                       </div>
                     </div>
                   </div>
+                  <!-- <p id="penalty_msg" style="color: red;" hidden>* A penalty fee has to be paid as the due date for the loan has expired.</p> -->
                                 
                   <div class="row">
                     <div class="update ml-auto mr-auto">
@@ -302,7 +288,7 @@ mysqli_select_db($con,DB_NAME);
                           mysqli_query($con,$insert);
 
                           if($brought_forward <= 0){
-                            $update_status = mysqli_query($con,"UPDATE loan SET l_status =0 WHERE loan_no=$loan_no");
+                            $update_status = mysqli_query($con,"UPDATE loan SET l_status =0, penalty_status=0 WHERE loan_no=$loan_no");
                           }
 
                             }
@@ -323,25 +309,30 @@ mysqli_select_db($con,DB_NAME);
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                   	<thead class="text-primary">
-                  	  <th>                    ID 				       </th>
-                      <th>                    Date             </th>
+                  	  <th>                    ID 				      </th>
+                      <th>                    Date            </th>
                       <th class="text-right"> Paid amt        </th>
                       <th class="text-right"> Arreares        </th>
                       <th class="text-right"> Total paid      </th>
                       <th class="text-right"> Brought Forward	</th>
-                      <th class="text-right"> loan no </th>
+                      <th>                    Customer        </th>
                       <th class="text-center">Delete          </th>
                       <th class="text-center">Print 			    </th>
                     </thead>
                     <tbody>
                       <?php
-                      $sql="SELECT * FROM loan_installement";
+                      $sql="SELECT * FROM loan_installement ORDER BY id DESC";
                       
                       $result = mysqli_query($con,$sql);
                       $numRows = mysqli_num_rows($result); 
                  
                       if($numRows > 0) {
                         while($row = mysqli_fetch_assoc($result)) {
+                          $loan_no = $row['loan_no'];
+
+                          $customer = mysqli_query($con,"SELECT * FROM loan L INNER JOIN customer C ON C.cust_id=L.cust_id WHERE L.loan_no='$loan_no' ");
+                          $cust_data = mysqli_fetch_assoc($customer);
+
                       ?>   
                         <tr>
                         <td>                    
@@ -362,8 +353,8 @@ mysqli_select_db($con,DB_NAME);
                         <td class="text-right"> 
                           <?php echo number_format($row['brought_forward'],2) ?> 
                         </td>
-                        <td class="text-right"> 
-                          <?php echo $row['loan_no']  ?>        
+                        <td> 
+                          <?php echo  $cust_data['name']; ?>        
                         </td>
                        
                       	<td class="text-center">  
@@ -403,23 +394,14 @@ mysqli_select_db($con,DB_NAME);
 
   </div>
 
-  <!--   Core JS Files   -->
-  <script src="assets/js/core/jquery.min.js"></script>
-  <script src="assets/js/core/popper.min.js"></script>
-  <script src="assets/js/core/bootstrap.min.js"></script>
-  <!-- <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script> -->
-  <!--  Google Maps Plugin    -->
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
-  <!-- Chart JS -->
-  <script src="assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
- <!--  <script src="assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script> --><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="assets/demo/demo.js"></script>
-  <!-- sweetalert message -->
-  <script src="assets/js/sweetalert.min.js"></script>
+  <?php include('include/footer_js.php');  ?>
+
   <script>
+
+  ////////////////////////////  DataTable ////////////////////////////
+  $(document).ready( function () {
+      $('#myTable').DataTable();
+  });
 
   /////////////////////////////////////// Table Search 
   $(document).ready(function(){
@@ -444,6 +426,7 @@ mysqli_select_db($con,DB_NAME);
           var obj = JSON.parse(response);
 
           var l_type = obj.l_type
+          var penalty_status = obj.penalty_status
 
           $('#type').val(l_type);
           $('#method').val(obj.l_method);
@@ -455,11 +438,23 @@ mysqli_select_db($con,DB_NAME);
           $('#duration').val(obj.duration);
 
           var pre_date  =  obj.pre_date
+          var end_date  =  obj.end_date
           var now_date  =  $('#li_date').val();
 
           const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-          const firstDate = new Date(pre_date);
-          const secondDate = new Date(now_date);
+          
+          if(now_date<=end_date){
+            var day1 = pre_date;
+            var day2 = now_date;
+          }else{
+            var day1 = pre_date;
+            var day2 = end_date;
+
+            $('#expiry_msg').prop('hidden', false);
+          }
+
+          const firstDate = new Date(day1);
+          const secondDate = new Date(day2);
 
           const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
           
@@ -479,6 +474,12 @@ mysqli_select_db($con,DB_NAME);
               $('#days').val(diffDays);
           }
           $('#li_date').prop('disabled', false);
+
+          // if(penalty_status==1){
+          //   $('#penalty_msg').prop('hidden', false);
+          // }else{
+          //   $('#penalty_msg').prop('hidden', true);
+          // }
         }
       });
   }); 
@@ -499,18 +500,35 @@ mysqli_select_db($con,DB_NAME);
         success: function (response) {
           var obj = JSON.parse(response);
           var pre_date  =  obj.pre_date
+          var end_date  =  obj.end_date
           var now_date  =  $('#li_date').val();
 
-          $('#pre_date').val(pre_date);
-          $('#now_date').val(now_date);
+          $('#pre_date').val(pre_date);// before installement date or loan get date
+          $('#now_date').val(now_date);// selected date
 
 
           const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-          const firstDate = new Date(pre_date);
-          const secondDate = new Date(now_date);
+          // alert(now_date)
+          // alert(pre_date)
+          // alert(end_date)
+
+          if(now_date<=end_date){
+            var day1 = pre_date;
+            var day2 = now_date;
+          }else{
+            var day1 = pre_date;
+            var day2 = end_date;
+
+            $('#expiry_msg').prop('hidden', false);
+          }
+
+            const firstDate = new Date(day1);
+            const secondDate = new Date(day2);
+
+          // alert(firstDate)
+          // alert(secondDate)
 
           const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
-
 
           if(type=='weekly' && method=='normal'){
               var a = diffDays;
@@ -522,22 +540,9 @@ mysqli_select_db($con,DB_NAME);
                 }else{
                   x = a / b;
                 }
-              $('#days').val(x);
-          // }else if(){
-          //     if(type=='weekly' && method=='sunday off'){
-          //     var a = diffDays;
-          //     var b = 7;
-          //     var c = a % b;
-          //     var x;
-          //       if(c>=1){
-          //         x = (a - c) / 7;
-          //       }else{
-          //         x = a / b;
-          //       }
-          //     $('#days').val(x);
-          // }
-          
-          
+              //$('#days').val(x);
+              $('#days').val(a);
+                    
           }else{
               $('#days').val(diffDays);
           }
@@ -560,6 +565,7 @@ function form_reset(){
 $('.checkAmt').on('keyup',function(){
 
   checkAmt()
+  $('#expiry_msg').prop('hidden', true);
 
 })
 
@@ -625,7 +631,8 @@ function checkAmt(){
                 }else{
                   x = a / b;
                 }
-         new_days = Number(x);
+         //new_days = Number(x);
+         new_days = Number(a);
       }
       else if(type=='weekly' && method=='normal')
       {
@@ -659,9 +666,10 @@ function checkAmt(){
       var old_total    =  obj.total_paid
       var old_arreares =  obj.arrears
       var rental       =  obj.rental
+      var daily_rental =  obj.daily_rental
 
 
-      amount = Number(rental)*Number(new_days);
+      amount = Number(daily_rental)*Number(new_days);
 
       new_forward  = Number(old_forward)-Number(paid);
       new_total    = Number(old_total)+Number(paid);

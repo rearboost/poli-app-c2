@@ -16,25 +16,7 @@ mysqli_select_db($con,DB_NAME);
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Poli App - CUSTOMER LOANS
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="assets/demo/demo.css" rel="stylesheet" />
-
-</head>
+<?php include('include/head.php'); ?>
 
 <body class="">
   <div class="wrapper ">
@@ -100,8 +82,8 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control form-selectBox" id="customer_loan" name = "cust_id" required>
-                            <option value="default">--Select Customer--</option>
+                          <select class="form-control form-selectBox" id="customer_loan" name="cust_id" required="">
+                            <option selected="" value="0">--Select Customer--</option>
                             <?php
                           
                             /// need to fetch customer who not a debtor [only drop customers who have l_status - 1]
@@ -175,6 +157,13 @@ mysqli_select_db($con,DB_NAME);
 
                     <div class="col-md-6 pr-3">
                       <div class="form-group">
+                        <label>Daily Rental</label>
+                        <input type="text" class="form-control" id="daily_rental" name= "daily_rental" placeholder="0.00" required readonly>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 pr-3">
+                      <div class="form-group">
                         <input type="text" class="form-control" id="end_date" name = "end_date" placeholder="End date" required readonly hidden>
                       </div>
                     </div>
@@ -196,8 +185,8 @@ mysqli_select_db($con,DB_NAME);
                             $no_installements = $_POST['no_installements'];
                             $rental           = $_POST['rental'];
                             $duration         = $_POST['duration'];
-                            $end_date        = $_POST['end_date'];
-                            //$qa  = $_POST['end_date'];
+                            $end_date         = $_POST['end_date'];
+                            $daily_rental     = $_POST['daily_rental'];
                            
                             $year =  date("Y");
                             $month = date("m");
@@ -263,7 +252,7 @@ mysqli_select_db($con,DB_NAME);
                               $totaldays = $sunAndpoyaday+$sundays;
                               $end_date = date('Y-m-d', strtotime($dateEnd. ' + '.$totaldays.' days'));
                             }
-                            //////////////////////////
+                            ///////////////summarry query starts///////////
 
                             $querySummary = "SELECT id ,loanAMT FROM summary WHERE year='$year' AND month='$month' ";
                             $resultSummary = mysqli_query($con ,$querySummary);
@@ -319,8 +308,8 @@ mysqli_select_db($con,DB_NAME);
                                 }
                             }
 
-                            $insert2 = "INSERT INTO loan (l_date,amount,interest,no_installements,rental, duration,end_date,cust_id,l_status,l_type,l_method) 
-                              VALUES ('$l_date',$l_amt,$interest,$no_installements,$rental,$duration,'$end_date','$cust_id',1,'$loan_type','$loan_method')";                         
+                            $insert2 = "INSERT INTO loan (l_date,amount,interest,no_installements,rental,daily_rental,duration,end_date,cust_id,l_status,l_type,l_method) 
+                              VALUES ('$l_date',$l_amt,$interest,$no_installements,$rental,$daily_rental,$duration,'$end_date','$cust_id',1,'$loan_type','$loan_method')";                         
                             mysqli_query($con,$insert2);
 
                           }
@@ -345,15 +334,16 @@ mysqli_select_db($con,DB_NAME);
                       <th class="text-right">   Rental      </th> 
                       <th class="text-right">   Duration    </th>   
                       <th class="text-center">  Status      </th>
-                      <th class="text-center">  Type        </th>
-                      <th class="text-center">  Method      </th>
-                      <th>                      cust.ID     </th>
+                      <!-- <th class="text-center">  Type        </th>
+                      <th class="text-center">  Method      </th> -->
+                      <th>                      Customer    </th>
+                      <th>                      Penalty    </th>
                       <th class="text-center">  View 				</th>
                       <th class="text-center">  Delete 			</th>
                     </thead>
                     <tbody>
                       <?php
-                      $sql=mysqli_query($con,"SELECT * FROM loan");
+                      $sql=mysqli_query($con,"SELECT * FROM loan ORDER BY loan_no DESC");
                       
                       $numRows = mysqli_num_rows($sql); 
                  
@@ -396,6 +386,10 @@ mysqli_select_db($con,DB_NAME);
                         }else{
                           $view_satus = "Closed";
                         }  
+                          $cust_id = $row['cust_id'];
+                          $customer = mysqli_query($con, "SELECT * FROM customer WHERE cust_id = '$cust_id'");
+                          $cust_data = mysqli_fetch_assoc($customer);
+
                           ?>
                         
                     <tr>
@@ -407,9 +401,14 @@ mysqli_select_db($con,DB_NAME);
                       <td class="text-right"><?php echo number_format($row['rental'],2)?> </td>
                       <td class="text-right"><?php echo $row['duration']?> </td>
                       <td class="text-center"><?php echo $view_satus; ?> </td>
-                      <td class="text-center"><?php echo $row['l_type'] ?> </td>
-                      <td class="text-center"><?php echo $row['l_method'] ?> </td>
-                      <td>                    <?php echo $row['cust_id'] ?>  </td>
+                    <!-- <td class="text-center"><?php // echo $row['l_type'] ?> </td>
+                    <td class="text-center"><?php // echo $row['l_method'] ?> </td> -->
+                      <td>                    <?php echo $cust_data['name'] ?>  </td>
+
+                      <td class="text-center">  
+                        <a href="#" onclick="add(<?php echo $row['loan_no']; ?>)" name="edit">
+                        <i class="fa fa-plus" aria-hidden="true"></i></a>
+                      </td>
 
                       <td class="text-center">  
                         <a href="#" onclick="editView(<?php echo $row['loan_no']; ?>)" name="edit">
@@ -451,24 +450,14 @@ mysqli_select_db($con,DB_NAME);
 
   </div>
 
-  <!--   Core JS Files   -->
-  <script src="assets/js/core/jquery.min.js"></script>
-  <script src="assets/js/core/popper.min.js"></script>
-  <script src="assets/js/core/bootstrap.min.js"></script>
-  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
-  <!-- Chart JS -->
-  <script src="assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <!-- <script src="assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script> --><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="assets/demo/demo.js"></script>
-  <!-- sweetalert message -->
-  <script src="assets/js/sweetalert.min.js"></script>
+  <?php include('include/footer_js.php');  ?>
 
 <script>
+
+  ////////////////////////////  DataTable ////////////////////////////
+  $(document).ready( function () {
+      $('#myTable').DataTable();
+  });
 
   /////////////////////////////////////// Table Search ///////////////////////////
     $(document).ready(function(){
@@ -505,7 +494,6 @@ mysqli_select_db($con,DB_NAME);
   });  
 
   /////////// calculate rental when keyup //////////////////// 
-
   $('.customerAmt').on('keyup',function(){
       customerAmt()
   });
@@ -544,17 +532,22 @@ mysqli_select_db($con,DB_NAME);
     var duration;
     var interest;
     var rental;
+    var daily_rental;
 
     if(type_value=='weekly'){
       interest = (Number(amount)*(Number(int)/100)*no)/4;
       rental = (Number(amount)+Number(interest))/no;
       duration = Number(no) * 7;
+      daily_rental = Math.ceil(Number(rental)/7);
     }else{
       interest = (Number(amount)*(Number(int)/100)*no)/30;
       rental = (Number(amount)+Number(interest))/no;
       duration = Number(no);
+      daily_rental = rental;
     }
 
+
+    $('#daily_rental').val(daily_rental.toFixed(2));
     $('#rental').val(rental.toFixed(2));
 
     $('#duration').val(duration);
@@ -648,6 +641,12 @@ mysqli_select_db($con,DB_NAME);
 
         e.preventDefault();
 
+        var customer_loan = $('#customer_loan').val();
+
+        if(customer_loan=='0'){
+          alert('Submission Failed.Required Field is Empty.');
+        }else{
+
         $.ajax({
           type: 'post',
           url: 'customer_loan.php',
@@ -662,6 +661,7 @@ mysqli_select_db($con,DB_NAME);
               setTimeout(function(){ location.reload(); }, 2500);
              }
         });
+        }
 
       });
 
@@ -671,6 +671,20 @@ mysqli_select_db($con,DB_NAME);
   ///////// Form values reset /////////
   function form_reset(){
     document.getElementById("loanAdd").reset();
+  }
+
+  ////////// Add penalty fee ////////////
+  function add(id){
+
+    $.ajax({
+            url:"edit_loan.php",
+            method:"POST",
+            data:{"id":id},
+            success:function(data){
+              $('#show_view').html(data);
+              $('#PenaltyForm').modal('show');
+            }
+      });
   }
 
   ////////// Form edit ////////////
